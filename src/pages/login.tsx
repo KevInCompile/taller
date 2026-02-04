@@ -4,9 +4,13 @@ import { loginSchema, type LoginFormData } from '../schemas/auth.schema';
 import { authService } from '../api/auth.service';
 import { useAuthStore } from '../store/useAuthStore';
 import { Mail, Lock, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
 
 export const LoginPage = () => {
   const setAuth = useAuthStore((state) => state.setAuth);
+  const navigate = useNavigate()
 
   const {
     register,
@@ -19,12 +23,18 @@ export const LoginPage = () => {
   const onSubmit = async (data: LoginFormData) => {
     try {
       const response = await authService.login(data);
-
       setAuth(response.user, response.token);
+      toast.success(`¡Bienvenido de nuevo!`, {
+        description: 'Redirigiendo al panel de control...'
+      });
+      setTimeout(() => {
+        navigate('/');
+      }, 1500);
 
-      alert("¡Bienvenido al taller!");
-    } catch (error: any) {
-      alert(error.response?.data?.message || "Error al iniciar sesión");
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data?.message || "Error al iniciar sesión");
+      }
     }
   };
 
@@ -69,7 +79,7 @@ export const LoginPage = () => {
 
             <button
               disabled={isSubmitting}
-              className="w-full bg-brand-dark text-white font-bold py-3 rounded-lg hover:bg-black transition flex justify-center items-center gap-2"
+              className="w-full bg-brand-dark text-white cursor-pointer font-bold py-3 rounded-lg hover:bg-black transition flex justify-center items-center gap-2"
             >
               {isSubmitting ? <Loader2 className="animate-spin" size={20} /> : 'Entrar'}
             </button>
