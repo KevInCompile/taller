@@ -6,7 +6,6 @@ export const CustomersPage = () => {
   const { customers, loading } = useCustomers();
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Lógica de filtrado inteligente
   const filteredCustomers = useMemo(() => {
     if (!searchTerm.trim()) return customers;
 
