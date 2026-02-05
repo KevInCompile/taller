@@ -17,8 +17,7 @@ export const CustomersPage = () => {
       const phone = customer.phone.toLowerCase();
       const email = customer.email.toLowerCase();
 
-      // También buscamos dentro de las placas de sus vehículos
-      const hasMatchingVehicle = customer.vehicles.some(v =>
+      const hasMatchingVehicle = customer.vehicles.some((v) =>
         v.plate.toLowerCase().includes(lowerTerm)
       );
 
