@@ -1,8 +1,35 @@
+import { useMemo, useState } from 'react';
 import { useCustomers } from '../hooks/useCustomers';
-import { Plus, Search, UserPlus, Loader2, Users } from 'lucide-react';
+import { Plus, Search, UserPlus, Loader2, Users, X } from 'lucide-react';
 
 export const CustomersPage = () => {
   const { customers, loading } = useCustomers();
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Lógica de filtrado inteligente
+  const filteredCustomers = useMemo(() => {
+    if (!searchTerm.trim()) return customers;
+
+    const lowerTerm = searchTerm.toLowerCase();
+
+    return customers.filter((customer) => {
+      const fullName = `${customer.firstName} ${customer.lastName}`.toLowerCase();
+      const phone = customer.phone.toLowerCase();
+      const email = customer.email.toLowerCase();
+
+      // También buscamos dentro de las placas de sus vehículos
+      const hasMatchingVehicle = customer.vehicles.some(v =>
+        v.plate.toLowerCase().includes(lowerTerm)
+      );
+
+      return (
+        fullName.includes(lowerTerm) ||
+        phone.includes(lowerTerm) ||
+        email.includes(lowerTerm) ||
+        hasMatchingVehicle
+      );
+    });
+  }, [searchTerm, customers]);
 
   return (
     <div className="space-y-6 animate-fadeIn p-8">
@@ -17,24 +44,33 @@ export const CustomersPage = () => {
       </header>
 
       {/* Buscador */}
-      <div className="relative">
-        <Search className="absolute left-3 top-3 text-gray-400" size={20} />
+      <div className="relative group">
+        <Search className={`absolute left-3 top-3 transition-colors ${searchTerm ? 'text-brand-accent' : 'text-gray-400'}`} size={20} />
         <input
           type="text"
-          placeholder="Buscar cliente..."
-          className="w-full pl-10 p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-accent outline-none transition-all"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Buscar por nombre, teléfono, email o placa (ABC-123)..."
+          className="w-full pl-10 pr-10 p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-accent outline-none transition-all shadow-sm group-hover:border-gray-300"
         />
+        {searchTerm && (
+          <button
+            onClick={() => setSearchTerm('')}
+            className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+          >
+            <X size={20} />
+          </button>
+        )}
       </div>
-
       {/* Contenedor de Tabla / Loading */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden min-h-[400px]">
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden min-h-100">
         {loading ? (
-          <div className="flex flex-col items-center justify-center h-[400px] text-gray-400">
+          <div className="flex flex-col items-center justify-center h-100 text-gray-400">
             <Loader2 className="animate-spin mb-4 text-brand-accent" size={40} />
             <p className="font-medium animate-pulse">Consultando base de datos...</p>
           </div>
         ) : customers.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-[400px] text-center p-6">
+          <div className="flex flex-col items-center justify-center h-100 text-center p-6">
             <div className="bg-gray-50 p-6 rounded-full mb-4">
               <Users size={48} className="text-gray-300" />
             </div>
@@ -53,7 +89,7 @@ export const CustomersPage = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {customers.map((customer) => (
+                {filteredCustomers.map((customer) => (
                   <tr key={customer.id} className="hover:bg-gray-50 transition-colors group">
                     <td className="px-6 py-4 font-medium text-gray-800">
                       {customer.firstName} {customer.lastName}
