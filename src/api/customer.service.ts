@@ -1,5 +1,6 @@
 import api from './auth.service';
-import type { Customer, CustomerCreateInput, Vehicle } from '../types/customer';
+import type { Customer, Vehicle } from '../types/customer';
+import type { CustomerFormData } from '../schemas/customer.schema';
 
 export const customerService = {
   getAll: async (): Promise<{ customers: Customer[] }> => {
@@ -7,7 +8,7 @@ export const customerService = {
     return data;
   },
 
-  create: async (customer: CustomerCreateInput): Promise<Customer> => {
+  create: async (customer: CustomerFormData): Promise<Customer> => {
     const { data } = await api.post('/customers', customer);
     return data;
   },

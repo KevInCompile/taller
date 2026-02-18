@@ -29,7 +29,7 @@ const router = createBrowserRouter([
           path: "customers",
           element: <WorkshopGuard><CustomersPage /></WorkshopGuard> // Protegido
         },
-        { path: "configuracion", element: <SettingsPage /> }, // Libre para que lo cree
+        { path: "settings", element: <SettingsPage /> }, // Libre para que lo cree
       ]
   },
 ]);

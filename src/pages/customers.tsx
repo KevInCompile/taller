@@ -1,10 +1,12 @@
 import { useMemo, useState } from 'react';
 import { useCustomers } from '../hooks/useCustomers';
 import { Plus, Search, UserPlus, Loader2, Users, X } from 'lucide-react';
+import { CustomerModal } from '../components/customers/CustomerModal';
 
 export const CustomersPage = () => {
-  const { customers, loading } = useCustomers();
+  const { customers, loading, refresh } = useCustomers();
   const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const filteredCustomers = useMemo(() => {
     if (!searchTerm.trim()) return customers;
@@ -36,7 +38,10 @@ export const CustomersPage = () => {
           <h1 className="text-2xl font-bold text-gray-800">Clientes</h1>
           <p className="text-gray-500 text-sm">Base de datos de propietarios y vehículos.</p>
         </div>
-        <button className="bg-brand-accent text-white px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-orange-600 transition shadow-lg shadow-orange-200">
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="bg-brand-accent text-white px-4 py-2 rounded-xl flex items-center gap-2"
+        >
           <UserPlus size={20} /> Nuevo Cliente
         </button>
       </header>
@@ -51,8 +56,7 @@ export const CustomersPage = () => {
           placeholder="Buscar por nombre, teléfono, email o placa (ABC-123)..."
           className="w-full pl-10 pr-10 p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-accent outline-none transition-all shadow-sm group-hover:border-gray-300"
         />
-        {searchTerm && (
-          <button
+        {searchTerm && ( <button
             onClick={() => setSearchTerm('')}
             className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
           >
@@ -121,6 +125,11 @@ export const CustomersPage = () => {
           </div>
         )}
       </div>
+      <CustomerModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={refresh}
+      />
     </div>
   );
 };

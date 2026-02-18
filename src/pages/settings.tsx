@@ -38,8 +38,6 @@ export const SettingsPage = () => {
       let payload;
 
       if (isCreating) {
-        // --- FLUJO DE CREACIÓN (POST - JSON) ---
-        // Si es la primera vez, mandamos el objeto plano según tu endpoint /workshops
         payload = {
           name: data.name,
           address: data.address,
