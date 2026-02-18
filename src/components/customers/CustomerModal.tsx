@@ -3,17 +3,18 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { X, User, Phone, Mail, MapPin, Notebook, Loader2 } from 'lucide-react';
 import { customerSchema, type CustomerFormData } from '../../schemas/customer.schema';
 import { customerService } from '../../api/customer.service';
-import { toast } from 'sonner';
 import { AxiosError } from 'axios';
+import Swal from 'sweetalert2'
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
+  onOpenVehicleModal: (id: string, name: string) => void;
 }
 
-export const CustomerModal = ({ isOpen, onClose, onSuccess }: Props) => {
-  const { register, handleSubmit, setError, formState: { errors, isSubmitting }, reset } = useForm<CustomerFormData>({
+export const CustomerModal = ({ isOpen, onClose, onSuccess, onOpenVehicleModal }: Props) => {
+  const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<CustomerFormData>({
     resolver: zodResolver(customerSchema)
   });
 
@@ -21,11 +22,27 @@ export const CustomerModal = ({ isOpen, onClose, onSuccess }: Props) => {
 
   const onSubmit = async (data: CustomerFormData) => {
     try {
-      await customerService.create(data);
-      toast.success("Cliente registrado correctamente");
-      reset();
+      const newCustomer = await customerService.create(data);
+
       onSuccess();
       onClose();
+
+      // ALERTA DE SEGUIMIENTO
+      Swal.fire({
+        title: '¡Cliente Registrado!',
+        text: `¿Deseas agregar un vehículo a ${newCustomer.firstName}?`,
+        showCancelButton: true,
+        confirmButtonColor: '#F2633C', // Tu color brand-accent
+        cancelButtonColor: '#1F2937',  // Tu color brand-dark
+        confirmButtonText: 'Sí, agregar vehículo',
+        cancelButtonText: 'Más tarde',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          onOpenVehicleModal(newCustomer.id, `${newCustomer.firstName} ${newCustomer.lastName}`);
+        }
+      });
+
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         if (error.response?.data.message.includes('phone')) {
@@ -134,7 +151,7 @@ export const CustomerModal = ({ isOpen, onClose, onSuccess }: Props) => {
   );
 };
 
-const FormInput = ({ label, required, name, register, error, icon, ...props }: any) => (
+export const FormInput = ({ label, required, name, register, error, icon, ...props }: any) => (
   <div className="w-full">
     <label className="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-2">
       {icon} {label} {required ? <span className="text-red-500">*</span> : ''}

@@ -2,11 +2,18 @@ import { useMemo, useState } from 'react';
 import { useCustomers } from '../hooks/useCustomers';
 import { Plus, Search, UserPlus, Loader2, Users, X } from 'lucide-react';
 import { CustomerModal } from '../components/customers/CustomerModal';
+import { VehicleModal } from '../components/vehicles/VehicleModal';
+import { Link } from 'react-router-dom';
 
 export const CustomersPage = () => {
   const { customers, loading, refresh } = useCustomers();
   const [searchTerm, setSearchTerm] = useState('');
+  const [vehicleModal, setVehicleModal] = useState({ open: false, id: '', name: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenVehicle = (id: string, name: string) => {
+    setVehicleModal({ open: true, id, name });
+  };
 
   const filteredCustomers = useMemo(() => {
     if (!searchTerm.trim()) return customers;
@@ -93,8 +100,13 @@ export const CustomersPage = () => {
               <tbody className="divide-y divide-gray-100">
                 {filteredCustomers.map((customer) => (
                   <tr key={customer.id} className="hover:bg-gray-50 transition-colors group">
-                    <td className="px-6 py-4 font-medium text-gray-800">
-                      {customer.firstName} {customer.lastName}
+                    <td className="px-6 py-4">
+                      <Link
+                        to={`/customer/${customer.id}`}
+                        className="font-bold text-gray-800 hover:text-brand-accent transition-colors"
+                      >
+                        {customer.firstName} {customer.lastName}
+                      </Link>
                     </td>
                     <td className="px-6 py-4 text-sm">
                       <div className="text-gray-700">{customer.phone}</div>
@@ -128,6 +140,14 @@ export const CustomersPage = () => {
       <CustomerModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        onSuccess={refresh}
+        onOpenVehicleModal={handleOpenVehicle}
+      />
+      <VehicleModal
+        isOpen={vehicleModal.open}
+        customerId={vehicleModal.id}
+        customerName={vehicleModal.name}
+        onClose={() => setVehicleModal({ ...vehicleModal, open: false })}
         onSuccess={refresh}
       />
     </div>

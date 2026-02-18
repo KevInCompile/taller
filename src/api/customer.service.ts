@@ -1,8 +1,14 @@
 import api from './auth.service';
-import type { Customer, Vehicle } from '../types/customer';
 import type { CustomerFormData } from '../schemas/customer.schema';
+import type { Customer, Vehicle } from '../models/customer.model';
 
 export const customerService = {
+
+  getById: async (id: string): Promise<Customer> => {
+    const { data } = await api.get(`/customers/${id}`);
+    return data;
+  },
+
   getAll: async (): Promise<{ customers: Customer[] }> => {
     const { data } = await api.get('/customers');
     return data;

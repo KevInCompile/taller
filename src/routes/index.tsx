@@ -7,6 +7,7 @@ import { DashboardLayout } from '../components/layout/LayoutDashboard';
 import App from '../App';
 import { WorkshopGuard } from '../components/auth/WorkshopGuard';
 import { CustomersPage } from '../pages/customers';
+import { CustomerDetail } from '../pages/CustomerDetails';
 
 // Componente para proteger rutas
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         {
           path: "customers",
           element: <WorkshopGuard><CustomersPage /></WorkshopGuard> // Protegido
+        },
+        {
+          path: "customer/:id",
+          element: <WorkshopGuard><CustomerDetail /></WorkshopGuard> // Protegido
         },
         { path: "settings", element: <SettingsPage /> }, // Libre para que lo cree
       ]
