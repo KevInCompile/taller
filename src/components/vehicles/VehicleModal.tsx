@@ -6,7 +6,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CarFront, Loader2, Plus } from "lucide-react";
 import { FormInput } from "../customers/CustomerModal";
 
-export const VehicleModal = ({ isOpen, onClose, customerId, customerName, onSuccess }: any) => {
+interface VehicleModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  customerId: string;
+  customerName: string;
+  onSuccess: () => void;
+}
+
+export const VehicleModal = ({ isOpen, onClose, customerId, customerName, onSuccess }: VehicleModalProps) => {
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<VehicleFormData>({
     resolver: zodResolver(vehicleSchema)
   });
@@ -26,7 +34,7 @@ export const VehicleModal = ({ isOpen, onClose, customerId, customerName, onSucc
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden animate-in zoom-in duration-200">
         <div className="bg-brand-accent p-6 text-white">
           <h2 className="text-xl font-bold flex items-center gap-2">

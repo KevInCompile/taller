@@ -1,5 +1,3 @@
-import { Loader2 } from 'lucide-react';
-
 export const CustomerDetailSkeleton = () => {
   return (
     <div className="space-y-6 animate-pulse p-8">
@@ -67,10 +65,10 @@ export const CustomerDetailSkeleton = () => {
       </div>
 
       {/* Overlay opcional para mayor feedback */}
-      <div className="fixed bottom-10 right-10 flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-lg border border-gray-100 text-gray-400 text-sm">
+      {/*<div className="fixed bottom-10 right-10 flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-lg border border-gray-100 text-gray-400 text-sm">
         <Loader2 className="animate-spin text-brand-accent" size={18} />
         Sincronizando datos...
-      </div>
+      </div>*/}
     </div>
   );
 };

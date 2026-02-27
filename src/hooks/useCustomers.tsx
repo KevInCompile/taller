@@ -10,7 +10,7 @@ export const useCustomers = () => {
   const fetchCustomers = async () => {
     try {
       const res = await customerService.getAll();
-      setCustomers(res.customers);
+      setCustomers(res?.customers ?? []);
     } catch (error: unknown) {
       toast.error("Error al obtener clientes");
     } finally {

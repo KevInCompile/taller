@@ -6,14 +6,18 @@ import { SettingsPage } from '../pages/settings';
 import { DashboardLayout } from '../components/layout/LayoutDashboard';
 import App from '../App';
 import { WorkshopGuard } from '../components/auth/WorkshopGuard';
-import { CustomersPage } from '../pages/customers';
-import { CustomerDetail } from '../pages/CustomerDetails';
+import { CustomersPage } from '../pages/customers/customers';
+import { CustomerDetail } from '../pages/customers/CustomerDetails';
+import { OrdersPage } from '../pages/orders/orders';
+import { SuppliesPage } from '../pages/supplies/supplies';
+import { ServicesPage } from '../pages/services/services';
 
-// Componente para proteger rutas
+// Componente para proteger
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const token = useAuthStore(state => state.token);
   return token ? children : <Navigate to="/login" />;
 };
+
 const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
   { path: "/register", element: <RegisterPage /> },
@@ -27,8 +31,20 @@ const router = createBrowserRouter([
         //   element: <WorkshopGuard><InventoryPage /></WorkshopGuard> // Protegido
         // },
         {
+          path: "orders",
+          element: <WorkshopGuard><OrdersPage /></WorkshopGuard>
+        },
+        {
+          path: "supplies",
+          element: <WorkshopGuard><SuppliesPage /></WorkshopGuard>
+        },
+        {
+          path: "tipos-servicio",
+          element: <WorkshopGuard><ServicesPage /></WorkshopGuard>
+        },
+        {
           path: "customers",
-          element: <WorkshopGuard><CustomersPage /></WorkshopGuard> // Protegido
+          element: <WorkshopGuard><CustomersPage /></WorkshopGuard>
         },
         {
           path: "customer/:id",

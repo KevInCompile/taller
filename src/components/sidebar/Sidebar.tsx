@@ -1,16 +1,17 @@
 import {
   Users,
   ClipboardList,
-  Package,
   CarFront,
   LayoutDashboard,
   Settings,
-  LogOut
+  LogOut,
+  Boxes,
+  Tag,
 } from 'lucide-react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../store/useAuthStore';
 
-const NavItem = ({ to, icon, label }: { to: string, icon: React.ReactNode, label: string }) => (
+const NavItem = ({ to, icon, label }: { to: string; icon: React.ReactNode; label: string }) => (
   <NavLink
     to={to}
     className={({ isActive }) => `
@@ -25,6 +26,12 @@ const NavItem = ({ to, icon, label }: { to: string, icon: React.ReactNode, label
   </NavLink>
 );
 
+const SectionLabel = ({ label }: { label: string }) => (
+  <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-4 mb-1 ml-2 first:mt-0">
+    {label}
+  </p>
+);
+
 const Sidebar = () => {
   const logout = useAuthStore(state => state.logout);
   const navigate = useNavigate();
@@ -36,26 +43,34 @@ const Sidebar = () => {
 
   return (
     <aside className="w-64 bg-brand-dark text-white p-6 flex flex-col h-screen sticky top-0">
-      <div className="mb-10">
-        <h1 className="text-2xl font-bold  text-brand-accent flex items-center gap-2">
+
+      {/* Logo */}
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-brand-accent flex items-center gap-2">
           <CarFront className="animate-pulse" /> TALLER NOW
         </h1>
       </div>
 
-      {/* Sección Principal de Operaciones */}
-      <nav className="flex flex-col gap-2 flex-1">
-        <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 ml-2">Menú Principal</p>
-        <NavItem to="/" icon={<LayoutDashboard size={20}/>} label="Dashboard" />
-        <NavItem to="/servicios" icon={<ClipboardList size={20}/>} label="Servicios" />
-        <NavItem to="/vehiculos" icon={<CarFront size={20}/>} label="Vehículos" />
-        <NavItem to="/customers" icon={<Users size={20}/>} label="Clientes" />
-        <NavItem to="/inventario" icon={<Package size={20}/>} label="Inventario" />
+      {/* Nav */}
+      <nav className="flex flex-col flex-1 gap-1 overflow-y-auto">
+
+        {/* ── Operaciones ── */}
+        <SectionLabel label="Operaciones" />
+        <NavItem to="/"           icon={<LayoutDashboard size={20} />} label="Dashboard" />
+        <NavItem to="/orders"     icon={<ClipboardList   size={20} />} label="Servicios" />
+        <NavItem to="/customers"  icon={<Users           size={20} />} label="Clientes" />
+
+        {/* ── Catálogo ── */}
+        <SectionLabel label="Catálogo" />
+        <NavItem to="/supplies"        icon={<Boxes size={20} />} label="Suministros" />
+        <NavItem to="/tipos-servicio"  icon={<Tag   size={20} />} label="Tipos de Servicio" />
+
       </nav>
 
-      {/* Sección Inferior de Configuración y Cuenta */}
-      <div className="pt-6 border-t border-gray-800 flex flex-col gap-2">
-        <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 ml-2">Sistema</p>
-        <NavItem to="/settings" icon={<Settings size={20}/>} label="Configuración" />
+      {/* Footer */}
+      <div className="pt-6 border-t border-gray-800 flex flex-col gap-1">
+        <SectionLabel label="Sistema" />
+        <NavItem to="/settings" icon={<Settings size={20} />} label="Configuración" />
 
         <button
           onClick={handleLogout}
@@ -65,6 +80,7 @@ const Sidebar = () => {
           <span className="font-medium">Cerrar Sesión</span>
         </button>
       </div>
+
     </aside>
   );
 };

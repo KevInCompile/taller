@@ -22,5 +22,18 @@ export const customerService = {
   addVehicle: async (customerId: string, vehicle: Partial<Vehicle>): Promise<Vehicle> => {
     const { data } = await api.post(`/customers/${customerId}/vehicles`, vehicle);
     return data;
+  },
+
+  update: async (id: string, customer: Partial<CustomerFormData>): Promise<Customer> => {
+    const { data } = await api.patch(`/customers/${id}`, customer);
+    return data;
+  },
+
+  delete: async (id: string): Promise<void> => {
+    await api.delete(`/customers/${id}`);
+  },
+
+  deleteVehicle: async (vehicleId: string): Promise<void> => {
+    await api.delete(`/customers/vehicles/${vehicleId}`);
   }
 };
