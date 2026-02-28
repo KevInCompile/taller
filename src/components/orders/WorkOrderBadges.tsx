@@ -1,7 +1,5 @@
 import type { WorkOrderStatus, WorkOrderPriority } from '../../models/work-order.model';
 
-// ─── STATUS ───────────────────────────────────────────────────────────────────
-
 const STATUS_CONFIG: Record<WorkOrderStatus, { label: string; classes: string; dot: string }> = {
   PENDING: {
     label: 'Pendiente',
