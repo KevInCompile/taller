@@ -20,8 +20,12 @@ export const RegisterPage = () => {
       setTimeout(() => {
         navigate('/login');
       }, 1500);
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Error al registrar");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Error al registrar");
+      }
     }
   };
 

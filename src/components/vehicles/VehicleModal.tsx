@@ -26,8 +26,12 @@ export const VehicleModal = ({ isOpen, onClose, customerId, customerName, onSucc
       reset();
       onSuccess();
       onClose();
-    } catch (error) {
-      toast.error("Error al registrar el vehículo");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Error al registrar el vehículo");
+      }
     }
   };
 

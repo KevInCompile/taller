@@ -38,7 +38,7 @@ export const LoginPage = () => {
   const onSubmit = async (data: LoginFormData) => {
     try {
       const response = await authService.login(data);
-      setAuth(response.user, response.token);
+      setAuth(response.token);
       toast.success('¡Bienvenido de nuevo!', {
         description: 'Redirigiendo al panel de control...',
       });

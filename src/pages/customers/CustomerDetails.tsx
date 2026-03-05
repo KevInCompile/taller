@@ -1,4 +1,4 @@
-import { Car, Phone, Mail, MapPin, Plus, History, Trash2, Loader2 } from 'lucide-react';
+import { Car, Phone, Mail, MapPin, Plus, Trash2, Loader2 } from 'lucide-react';
 import { useCustomerById } from '../../hooks/useCustomerById';
 import { CustomerDetailSkeleton } from '../../components/customers/skeletons/SkeletonCustomerDetail';
 import { VehicleModal } from '../../components/vehicles/VehicleModal';

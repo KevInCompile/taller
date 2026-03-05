@@ -105,7 +105,8 @@ export const SettingsPage = () => {
         />
       </div>
 
-      <form onSubmit={handleSubmit(onWorkshopSubmit)} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 space-y-6">        {isLoading ? (
+      <form onSubmit={handleSubmit(onWorkshopSubmit)} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 space-y-6">
+        {isLoading ? (
           <div className="flex-1 flex flex-col items-center justify-center text-gray-400">
             <Loader2 className="animate-spin mb-2" size={40} />
             <p>Cargando información...</p>
@@ -114,11 +115,11 @@ export const SettingsPage = () => {
           <>
             {activeTab === 'profile' ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <InputField label="Nombre" value={profileData?.firstName} onChange={(v) => setProfileData({...profileData, firstName: v})} />
-                <InputField label="Apellido" value={profileData?.lastName} onChange={(v) => setProfileData({...profileData, lastName: v})} />
-                <InputField label="Teléfono" value={profileData?.phoneNumber} onChange={(v) => setProfileData({...profileData, phoneNumber: v})} />
+                <InputField label="Nombre" value={profileData?.firstName} onChange={(v: string) => setProfileData({...profileData, firstName: v})} />
+                <InputField label="Apellido" value={profileData?.lastName} onChange={(v: string) => setProfileData({...profileData, lastName: v})} />
+                <InputField label="Teléfono" value={profileData?.phoneNumber} onChange={(v: string) => setProfileData({...profileData, phoneNumber: v})} />
                 <InputField label="Email" value={profileData?.email} disabled />
-                <InputField label="Fecha de Nacimiento" type="date" value={profileData?.dateOfBirth} onChange={(v) => setProfileData({...profileData, dateOfBirth: v})} />
+                <InputField label="Fecha de Nacimiento" type="date" value={profileData?.dateOfBirth} onChange={(v: string) => setProfileData({...profileData, dateOfBirth: v})} />
               </div>
               ) : (
                 <div className="space-y-4">

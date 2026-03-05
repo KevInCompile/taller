@@ -11,10 +11,14 @@ export const useCustomerById = () => {
 
   const fetchCustomers = async () => {
     try {
-      const res = await customerService.getById(params.id);
+      const res = await customerService.getById(params.id || '0');
       setCustomer(res);
     } catch (error: unknown) {
-      toast.error("Error al obtener clientes");
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Error al obtener clientes");
+      }
     } finally {
       setLoading(false);
     }

@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import {
   ClipboardList, Search, Plus, Loader2, X,
-  Pencil, Trash2, Tag,
+  Pencil, Trash2
 } from 'lucide-react';
 import { useServices } from '../../hooks/useServices';
 import { servicesCatalogService } from '../../api/services-catalog.service';
@@ -21,14 +21,14 @@ export const ServicesPage = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // ── Filters ───────────────────────────────────────────────────────────────
+  // Filters
   const filtered = useMemo(() => {
     const term = searchTerm.toLowerCase().trim();
     if (!term) return services;
     return services.filter(s => s.name.toLowerCase().includes(term));
   }, [services, searchTerm]);
 
-  // ── Pagination ────────────────────────────────────────────────────────────
+  // Pagination
   const { resetPage, ...pagination } = usePagination({
     totalItems:   filtered.length,
     itemsPerPage: PAGE_SIZE,

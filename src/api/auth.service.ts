@@ -1,6 +1,6 @@
 import axios from 'axios';
-import type { LoginCredentials, RegisterData, AuthResponse } from '../types/auth';
 import { useAuthStore } from '../store/useAuthStore';
+import type { LoginFormData } from '../schemas/auth.schema';
 
 const api = axios.create({
   baseURL: "https://taller-motos-backend.onrender.com/api",
@@ -26,8 +26,8 @@ api.interceptors.response.use(
 );
 
 export const authService = {
-  login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
-    const { data } = await api.post<AuthResponse>('/auth/login', credentials);
+  login: async (credentials: LoginFormData): Promise<{ token: string, message: string }> => {
+    const { data } = await api.post('/auth/login', credentials);
 
     if (data.token) {
       api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
@@ -36,8 +36,8 @@ export const authService = {
     return data;
   },
 
-  register: async (userData: RegisterData): Promise<AuthResponse> => {
-    const { data } = await api.post<AuthResponse>('/auth/register', userData);
+  register: async (userData: any): Promise<void> => {
+    const { data } = await api.post('/auth/register', userData);
     return data;
   }
 };

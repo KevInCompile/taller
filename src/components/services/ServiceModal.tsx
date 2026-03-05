@@ -5,7 +5,6 @@ import { serviceSchema, type ServiceFormData } from '../../schemas/service.schem
 import { servicesCatalogService } from '../../api/services-catalog.service';
 import { X, ClipboardList, Loader2, Tag } from 'lucide-react';
 import { AxiosError } from 'axios';
-import Swal from 'sweetalert2';
 import type { Service } from '../../models/work-order.model';
 import { toast } from 'sonner';
 
