@@ -15,7 +15,7 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       workshop: null,
       setWorkshop: (workshop) => set({ workshop }),
-      setAuth: (token) => set({token }),
+      setAuth: (token) => set({ token }),
       logout: () => set({ token: null }),
     }),
     { name: 'auth-storage' }

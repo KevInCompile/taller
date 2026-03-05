@@ -46,7 +46,6 @@ export const SettingsPage = () => {
           nit: data.nit,
         };
       } else {
-        // --- FLUJO DE ACTUALIZACIÓN (PUT - FormData) ---
         // Si ya existe, usamos FormData para permitir el archivo del logo
         const formData = new FormData();
         formData.append('name', data.name);

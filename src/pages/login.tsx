@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, type LoginFormData } from '../schemas/auth.schema';
 import { authService } from '../api/auth.service';
+import { workshopService } from '../api/user.service';
 import { useAuthStore } from '../store/useAuthStore';
 import {
   Mail, Lock, Loader2, Eye, EyeOff, CarFront,
@@ -24,6 +25,7 @@ const Feature = ({ icon, text }: { icon: React.ReactNode; text: string }) => (
 
 export const LoginPage = () => {
   const setAuth = useAuthStore(state => state.setAuth);
+  const setWorkshop = useAuthStore(state => state.setWorkshop);
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
 
@@ -39,6 +41,14 @@ export const LoginPage = () => {
     try {
       const response = await authService.login(data);
       setAuth(response.token);
+
+      try {
+        const workshop = await workshopService.getMyWorkshop();
+        setWorkshop(workshop);
+      } catch {
+        setWorkshop(null);
+      }
+
       toast.success('¡Bienvenido de nuevo!', {
         description: 'Redirigiendo al panel de control...',
       });

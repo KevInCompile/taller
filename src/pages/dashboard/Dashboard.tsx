@@ -241,7 +241,7 @@ export const Dashboard = () => {
 
       </div>
 
-      {/* ─── Middle row ──────────────────────────────────────────────────────── */}
+      {/* ─── Middle row */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
 
         {/* ── Últimas Órdenes (3/5) ── */}
