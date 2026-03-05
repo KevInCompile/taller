@@ -13,3 +13,10 @@ export const PRIORITY_OPTIONS: { value: WorkOrderPriority; label: string }[] = [
   { value: 'HIGH',   label: 'Alta'    },
   { value: 'URGENT', label: 'Urgente' },
 ];
+
+export const PRIORITY_BORDER: Record<WorkOrderPriority, string> = {
+  LOW:    'border-l-gray-300',
+  MEDIUM: 'border-l-sky-400',
+  HIGH:   'border-l-orange-400',
+  URGENT: 'border-l-red-500',
+};
