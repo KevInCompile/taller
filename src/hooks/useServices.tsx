@@ -21,6 +21,5 @@ export const useServices = () => {
   };
 
   useEffect(() => { fetchServices(); }, []);
-
-  return { services, loading, refresh: fetchServices };
+ return { services, loading, refresh: fetchServices };
 };

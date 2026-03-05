@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 import { toast } from 'sonner';
 import Stats from './ui/Stats';
 import { formatCurrency, formatDate } from '../../helpers/helpers';
-
+import { handleDelete } from './handerls/delete';
 
 const PAGE_SIZE = 10;
 
@@ -68,7 +68,7 @@ export const OrdersPage = () => {
     });
   }, [workOrders, searchTerm, statusFilter, priorityFilter]);
 
-  // ── Pagination ─────────────────────────────────────────────────────────────
+  // Pagination
   const { resetPage, ...pagination } = usePagination({
     totalItems:   filtered.length,
     itemsPerPage: PAGE_SIZE,
@@ -81,7 +81,6 @@ export const OrdersPage = () => {
     [filtered, pagination.offset],
   );
 
-  // ── Handlers ───────────────────────────────────────────────────────────────
   const handleEdit = (order: WorkOrder) => {
     setSelectedOrder(order);
     setIsModalOpen(true);
@@ -103,7 +102,7 @@ export const OrdersPage = () => {
       input: 'select',
       inputOptions,
       inputValue: order.status,
-      inputAttributes: { style: 'padding: 10px 12px; border-radius: 10px; border: 1px solid #e5e7eb; font-size: 14px; width: 100%;' },
+      inputAttributes: { style: 'padding: 10px 12px; border-radius: 10px; border: 1px solid #e5e7eb; font-size: 14px; width: 90%;' },
       showCancelButton: true,
       confirmButtonColor: '#F2633C',
       cancelButtonColor: '#1F2937',
@@ -123,41 +122,6 @@ export const OrdersPage = () => {
     }
   };
 
-  const handleDelete = async (order: WorkOrder) => {
-    const result = await Swal.fire({
-      title: '¿Eliminar orden?',
-      html: `Esta acción eliminará la orden <strong>#${shortId(order.id)}</strong> de <strong>${order.customer?.firstName ?? ''} ${order.customer?.lastName ?? ''}</strong>. No se puede deshacer.`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#ef4444',
-      cancelButtonColor: '#1F2937',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar',
-      reverseButtons: true,
-    });
-
-    if (result.isConfirmed) {
-      try {
-        await workOrderService.delete(order.id);
-        refresh();
-        Swal.fire({
-          title: 'Orden eliminada',
-          text: 'La orden ha sido eliminada correctamente.',
-          icon: 'success',
-          confirmButtonColor: '#F2633C',
-          confirmButtonText: 'Aceptar',
-        });
-      } catch {
-        Swal.fire({
-          title: 'Error',
-          text: 'No se pudo eliminar la orden. Intenta nuevamente.',
-          icon: 'error',
-          confirmButtonColor: '#F2633C',
-        });
-      }
-    }
-  };
-
   const hasActiveFilters = statusFilter !== 'ALL' || priorityFilter !== 'ALL' || searchTerm;
 
   const clearFilters = () => {
@@ -166,7 +130,6 @@ export const OrdersPage = () => {
     setPriorityFilter('ALL');
   };
 
-  // ── Render ─────────────────────────────────────────────────────────────────
   return (
     <div className="space-y-6 animate-fadeIn p-8">
 

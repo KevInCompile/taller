@@ -12,4 +12,7 @@ const formatDate = (d: string) =>
     year: 'numeric',
   });
 
-export { formatCurrency, formatDate };
+const shortId = (id: string) => id.slice(-8).toUpperCase();
+
+
+export { formatCurrency, formatDate, shortId };

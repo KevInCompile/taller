@@ -12,7 +12,7 @@ import {
   X, ClipboardList, User, Car, Wrench, Calendar, FileText,
   Plus, Trash2, Loader2, Package, DollarSign, ChevronDown,
 } from 'lucide-react';
-import Swal from 'sweetalert2';
+
 import { AxiosError } from 'axios';
 import { formatCurrency } from '../../helpers/helpers';
 import { toast } from 'sonner';
@@ -131,7 +131,7 @@ export const WorkOrderModal = ({ isOpen, onClose, onSuccess, workOrder }: Props)
         serviceId: workOrder.serviceId,
         mechanic: workOrder.mechanic,
         priority: workOrder.priority,
-        startDate: workOrder.startDate.slice(0, 10),
+        startDate:       workOrder.startDate.slice(0, 16),
         description: workOrder.description,
         additionalNotes: workOrder.additionalNotes ?? '',
         subtotal: Number(workOrder.subtotal),
@@ -172,13 +172,18 @@ export const WorkOrderModal = ({ isOpen, onClose, onSuccess, workOrder }: Props)
 
   const onSubmit = async (data: WorkOrderFormData) => {
     try {
+      const payload = {
+        ...data,
+        startDate: new Date(data.startDate).toISOString(),
+      };
+
       if (isEditing) {
-        await workOrderService.update(workOrder.id, data);
+        await workOrderService.update(workOrder.id, payload);
         onSuccess();
         onClose();
         toast.success("Los cambios han sido guardados correctamente.")
       } else {
-        await workOrderService.create(data);
+        await workOrderService.create(payload);
         onSuccess();
         onClose();
         toast.success("La orden ha sido creada con exito")
@@ -342,7 +347,7 @@ export const WorkOrderModal = ({ isOpen, onClose, onSuccess, workOrder }: Props)
               >
                 <input
                   {...register('startDate')}
-                  type="date"
+                  type="datetime-local"
                   className={inputClass(!!errors.startDate)}
                 />
               </Field>

@@ -54,16 +54,16 @@ const Sidebar = () => {
       {/* Nav */}
       <nav className="flex flex-col flex-1 gap-1 overflow-y-auto">
 
-        {/* ── Operaciones ── */}
+        {/* Operaciones */}
         <SectionLabel label="Operaciones" />
-        <NavItem to="/"           icon={<LayoutDashboard size={20} />} label="Dashboard" />
-        <NavItem to="/orders"     icon={<ClipboardList   size={20} />} label="Servicios" />
-        <NavItem to="/customers"  icon={<Users           size={20} />} label="Clientes" />
+        <NavItem to="/" icon={<LayoutDashboard size={20} />} label="Dashboard" />
+        <NavItem to="/orders" icon={<ClipboardList size={20} />} label="Ordenes" />
+        <NavItem to="/customers" icon={<Users size={20} />} label="Clientes" />
 
-        {/* ── Catálogo ── */}
+        {/* Catálogo */}
         <SectionLabel label="Catálogo" />
-        <NavItem to="/supplies"        icon={<Boxes size={20} />} label="Suministros" />
-        <NavItem to="/tipos-servicio"  icon={<Tag   size={20} />} label="Tipos de Servicio" />
+        <NavItem to="/supplies" icon={<Boxes size={20} />} label="Suministros" />
+        <NavItem to="/tipos-servicio" icon={<Tag   size={20} />} label="Tipos de Servicio" />
 
       </nav>
 
