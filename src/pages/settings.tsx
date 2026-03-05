@@ -59,11 +59,9 @@ export const SettingsPage = () => {
         if (data.logo && data.logo[0] instanceof File) {
           formData.append('logo', data.logo[0]);
         }
-
         payload = formData;
       }
 
-      // Llamamos a saveWorkshop que ya maneja internamente si hace POST o PUT
       const success = await saveWorkshop(payload);
 
       if (success) {

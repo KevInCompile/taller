@@ -63,7 +63,7 @@ const Sidebar = () => {
         {/* Catálogo */}
         <SectionLabel label="Catálogo" />
         <NavItem to="/supplies" icon={<Boxes size={20} />} label="Suministros" />
-        <NavItem to="/tipos-servicio" icon={<Tag   size={20} />} label="Tipos de Servicio" />
+        <NavItem to="/types-service" icon={<Tag size={20} />} label="Tipos de Servicio" />
 
       </nav>
 

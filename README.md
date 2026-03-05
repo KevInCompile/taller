@@ -1,73 +1,37 @@
-# React + TypeScript + Vite
+# Taller Now
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Taller Now** es una aplicación web de gestión integral para talleres mecánicos. Permite administrar de forma centralizada clientes, vehículos, órdenes de trabajo, servicios e insumos, facilitando el seguimiento del trabajo diario del taller.
 
-Currently, two official plugins are available:
+## ¿Qué es Taller Now?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Taller Now nace como solución para talleres mecánicos que necesitan digitalizar y organizar su operación. Desde el registro de un cliente hasta el cierre de una orden de trabajo, la plataforma cubre todo el flujo operativo de un taller en un solo lugar.
 
-## React Compiler
+## Características principales
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Autenticación** — Registro e inicio de sesión para acceder al sistema de forma segura.
+- **Dashboard** — Vista general del estado del taller con información resumida.
+- **Clientes** — Gestión completa de clientes, incluyendo datos de contacto, notas y sus vehículos asociados.
+- **Vehículos** — Registro de vehículos con marca, modelo, año, placa, color, kilometraje y tipo.
+- **Órdenes de trabajo** — Creación y seguimiento de órdenes de trabajo con:
+  - Estados: Pendiente, En Proceso, Completado, Cancelado.
+  - Prioridades: Baja, Media, Alta, Urgente.
+  - Asignación de mecánico, servicio, insumos y notas adicionales.
+  - Cálculo de subtotal y total.
+- **Servicios** — Catálogo de servicios ofrecidos por el taller con descripción y precio base.
+- **Insumos** — Control de inventario de insumos y repuestos con precio, stock y unidad de medida.
+- **Configuración** — Ajustes generales del taller.
 
-## Expanding the ESLint configuration
+## Tecnologías utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+| Tecnología | Uso |
+|---|---|
+| React 19 | Interfaz de usuario |
+| TypeScript | Tipado estático |
+| Vite | Bundler y servidor de desarrollo |
+| Tailwind CSS | Estilos y diseño visual |
+| React Router DOM | Navegación entre páginas |
+| Zustand | Manejo de estado global |
+| React Hook Form + Zod | Formularios y validación de datos |
+| Axios | Comunicación con la API |
+| Lucide React | Íconos |
+| Sonner + SweetAlert2 | Notificaciones y alertas |

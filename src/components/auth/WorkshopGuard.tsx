@@ -16,7 +16,7 @@ export const WorkshopGuard = ({ children }: { children: React.ReactNode }) => {
           Para gestionar inventarios, clientes y servicios, primero debes registrar los datos de tu negocio.
         </p>
         <Link
-          to="/configuracion"
+          to="/settings"
           className="bg-brand-dark text-white px-8 py-3 rounded-xl font-bold hover:bg-black transition"
         >
           Configurar Negocio Ahora

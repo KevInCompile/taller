@@ -39,7 +39,7 @@ const router = createBrowserRouter([
           element: <WorkshopGuard><SuppliesPage /></WorkshopGuard>
         },
         {
-          path: "tipos-servicio",
+          path: "types-services",
           element: <WorkshopGuard><ServicesPage /></WorkshopGuard>
         },
         {
