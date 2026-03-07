@@ -76,7 +76,7 @@ const KpiCard = ({ label, value, sub, icon, accent, bg, trend, to }: KpiCardProp
   return to ? <Link to={to} className="block h-full">{content}</Link> : content;
 };
 
-// ─── Main Component ───────────────────────────────────────────────────────────
+// ─── Main Component
 
 export const Dashboard = () => {
   const navigate = useNavigate();
@@ -86,7 +86,7 @@ export const Dashboard = () => {
 
   const loading = loadingOrders || loadingSupplies || loadingCustomers;
 
-  // ── Derived metrics ─────────────────────────────────────────────────────────
+  // ── Derived metrics
   const completedOrders = useMemo(
     () => workOrders.filter(o => o.status === 'COMPLETED'),
     [workOrders],
