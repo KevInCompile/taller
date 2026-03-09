@@ -1,18 +1,38 @@
-import { Save, Loader2 } from 'lucide-react';
+import { useEffect } from 'react';
+import { useForm, type SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { profileSchema, type ProfileFormData } from '../../schemas/profile.schema';
 import { useUserProfile } from '../../hooks/useUserProfile';
+import { FormInput } from '../ui/FormInput';
 import { InputField } from '../ui/InputField';
+import { Save, Loader2 } from 'lucide-react';
 
 export const ProfileTab = () => {
-  const { profileData, setProfileData, loading, updateProfile } = useUserProfile();
+  const { profileData, loading, updateProfile } = useUserProfile();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await updateProfile({
-      firstName:   profileData?.firstName,
-      lastName:    profileData?.lastName,
-      phoneNumber: profileData?.phoneNumber,
-      dateOfBirth: profileData?.dateOfBirth,
-    });
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ProfileFormData>({
+    resolver: zodResolver(profileSchema),
+    mode: 'onChange',
+  });
+
+  useEffect(() => {
+    if (profileData) {
+      reset({
+        firstName:   profileData.firstName   ?? '',
+        lastName:    profileData.lastName    ?? '',
+        phoneNumber: profileData.phoneNumber ?? '',
+        dateOfBirth: profileData.dateOfBirth ?? '',
+      });
+    }
+  }, [profileData, reset]);
+
+  const onSubmit: SubmitHandler<ProfileFormData> = async (data) => {
+    await updateProfile(data);
   };
 
   if (loading) {
@@ -25,42 +45,47 @@ export const ProfileTab = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <InputField
+        <FormInput
           label="Nombre"
-          value={profileData?.firstName}
-          onChange={(v) => setProfileData({ ...profileData, firstName: v })}
+          name="firstName"
+          register={register}
+          error={errors.firstName?.message}
         />
-        <InputField
+        <FormInput
           label="Apellido"
-          value={profileData?.lastName}
-          onChange={(v) => setProfileData({ ...profileData, lastName: v })}
+          name="lastName"
+          register={register}
+          error={errors.lastName?.message}
         />
-        <InputField
+        <FormInput
           label="Teléfono"
-          value={profileData?.phoneNumber}
-          onChange={(v) => setProfileData({ ...profileData, phoneNumber: v })}
+          name="phoneNumber"
+          register={register}
+          error={errors.phoneNumber?.message}
         />
         <InputField
           label="Email"
           value={profileData?.email}
           disabled
         />
-        <InputField
+        <FormInput
           label="Fecha de Nacimiento"
+          name="dateOfBirth"
           type="date"
-          value={profileData?.dateOfBirth}
-          onChange={(v) => setProfileData({ ...profileData, dateOfBirth: v })}
+          register={register}
+          error={errors.dateOfBirth?.message}
         />
       </div>
 
       <div className="flex justify-end pt-4">
         <button
           type="submit"
-          className="flex items-center gap-2 bg-brand-dark text-white px-8 py-3 rounded-xl hover:bg-black transition"
+          disabled={isSubmitting}
+          className="flex items-center gap-2 bg-brand-dark text-white px-8 py-3 rounded-xl hover:bg-black transition disabled:opacity-50"
         >
-          <Save size={20} />
+          {isSubmitting ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
           Guardar Cambios
         </button>
       </div>
