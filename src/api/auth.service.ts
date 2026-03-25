@@ -3,7 +3,7 @@ import { useAuthStore } from '../store/useAuthStore';
 import type { LoginFormData } from '../schemas/auth.schema';
 
 const api = axios.create({
-  baseURL: "https://taller-motos-backend.onrender.com/api",
+  baseURL: "https://taller-motos-backend-production.up.railway.app/api",
 });
 
 api.interceptors.request.use((config) => {
