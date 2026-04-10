@@ -1,4 +1,4 @@
-import {  useState} from 'react';
+import {  useEffect, useState} from 'react';
 import { Plus } from 'lucide-react';
 import { useWorkOrders } from '../../hooks/useWorkOrders';
 import { WorkOrderModal } from '../../components/orders/WorkOrderModal';
@@ -15,6 +15,10 @@ export const OrdersPage = () => {
     setIsModalOpen(false);
     setSelectedOrder(null);
   };
+
+  useEffect(() => {
+    window.document.title = 'Ordenes de Trabajo'
+  }, [])
 
   return (
     <div className="space-y-6 animate-fadeIn p-8">

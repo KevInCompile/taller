@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useWorkOrders } from '../../hooks/useWorkOrders';
 import { useSupplies } from '../../hooks/useSupplies';
@@ -162,7 +162,10 @@ export const Dashboard = () => {
     [workOrders],
   );
 
-  // ── Loading ─────────────────────────────────────────────────────────────────
+  useEffect(() => {
+    window.document.title = 'Dashboard'
+  }, [])
+
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center h-screen gap-4 text-gray-400">
@@ -172,11 +175,8 @@ export const Dashboard = () => {
     );
   }
 
-  // ── Render ──────────────────────────────────────────────────────────────────
   return (
     <div className="space-y-6 p-8 animate-fadeIn">
-
-      {/* ─── Header ─────────────────────────────────────────────────────────── */}
       <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">
@@ -194,9 +194,7 @@ export const Dashboard = () => {
         </button>
       </header>
 
-      {/* ─── KPI Row ─────────────────────────────────────────────────────────── */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-
         <KpiCard
           label="Ingresos del mes"
           value={formatCurrency(monthRevenue)}
@@ -241,10 +239,8 @@ export const Dashboard = () => {
 
       </div>
 
-      {/* ─── Middle row */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
 
-        {/* ── Últimas Órdenes (3/5) ── */}
         <div className="lg:col-span-3 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
             <h2 className="font-bold text-gray-800 flex items-center gap-2">
@@ -316,7 +312,7 @@ export const Dashboard = () => {
           )}
         </div>
 
-        {/* ── Right column (2/5) ── */}
+        {/* Right column (2/5)*/}
         <div className="lg:col-span-2 flex flex-col gap-5">
 
           {/* Stock Alerts */}
@@ -436,7 +432,7 @@ export const Dashboard = () => {
         </div>
       </div>
 
-      {/* ─── Bottom row: metrics ─────────────────────────────────────────────── */}
+      {/* ─── Bottom row: metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
         {/* Orders by status */}

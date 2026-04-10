@@ -1,13 +1,14 @@
-import { AlertCircle, ArrowUpDown, ClipboardList, Filter, Loader2, Pencil, Plus, RefreshCw, Search, Trash2, Wrench, X } from "lucide-react"
+import { AlertCircle, ArrowUpDown, ClipboardList, Eye, Filter, Loader2, Pencil, Plus, RefreshCw, Search, Trash2, Wrench, X } from "lucide-react"
 import { useEffect, useMemo, useState } from "react";
 import type { WorkOrder, WorkOrderPriority, WorkOrderStatus } from "../../../models/work-order.model";
+import { InvoiceModal } from "../../../components/orders/invoice/InvoiceModal";
 import { Pagination } from "../../../components/ui/Pagination";
 import { usePagination } from "../../../hooks/usePagination";
 import { PRIORITY_BORDER, PRIORITY_OPTIONS, STATUS_OPTIONS } from "../../../models/work-order.constants";
 import { formatCurrency, formatDate, shortId } from "../../../helpers/helpers";
 import { PriorityBadge, StatusBadge } from "../../../components/orders/WorkOrderBadges";
-import { handleDelete } from "../handerls/delete";
-import { handleChangeStatus } from "../handerls/change-status";
+import { handleDelete } from "../handlers/delete";
+import { handleChangeStatus } from "../handlers/change-status";
 
 interface Props {
   workOrders: WorkOrder[];
@@ -24,6 +25,7 @@ export const TableOrders: React.FC<Props> = (props) => {
   const [statusFilter, setStatusFilter] = useState<WorkOrderStatus | 'ALL'>('ALL');
   const [priorityFilter, setPriorityFilter] = useState<WorkOrderPriority | 'ALL'>('ALL');
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedOrderDetails, setSelectedOrderDetails] = useState<WorkOrder | null>(null);
 
   // Filters
   const filtered = useMemo(() => {
@@ -83,6 +85,7 @@ export const TableOrders: React.FC<Props> = (props) => {
     setSelectedOrder(order);
     setIsModalOpen(true);
   };
+
 
   return (
     <>
@@ -291,6 +294,13 @@ export const TableOrders: React.FC<Props> = (props) => {
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-1">
                         <button
+                          onClick={() => setSelectedOrderDetails(order)}
+                          className="text-gray-400 hover:text-green-500 transition-colors p-2 rounded-lg hover:bg-green-50"
+                          title="Ver detalles"
+                        >
+                          <Eye size={16} />
+                        </button>
+                        <button
                           onClick={() => handleChangeStatus(order, refresh)}
                           className="text-gray-400 hover:text-blue-500 transition-colors p-2 rounded-lg hover:bg-blue-50"
                           title="Cambiar estado"
@@ -330,6 +340,12 @@ export const TableOrders: React.FC<Props> = (props) => {
           </div>
         </div>
       )}
+
+      <InvoiceModal
+        isOpen={!!selectedOrderDetails}
+        onClose={() => setSelectedOrderDetails(null)}
+        workOrder={selectedOrderDetails}
+      />
       </div>
     </>
   )

@@ -42,7 +42,7 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="w-64 bg-brand-dark text-white p-6 flex flex-col h-screen sticky top-0">
+    <aside className="w-64 min-w-64 bg-brand-dark text-white p-6 flex flex-col h-screen sticky top-0">
 
       {/* Logo */}
       <div className="mb-8">

@@ -24,7 +24,7 @@ interface Props {
   workOrder?: WorkOrder;
 }
 
-// ─── Section header helper ────────────────────────────────────────────────────
+// Section header helper
 const SectionTitle = ({ icon, label }: { icon: React.ReactNode; label: string }) => (
   <div className="flex items-center gap-2 mb-4">
     <div className="text-brand-accent">{icon}</div>
@@ -33,7 +33,7 @@ const SectionTitle = ({ icon, label }: { icon: React.ReactNode; label: string })
   </div>
 );
 
-// ─── Select wrapper ───────────────────────────────────────────────────────────
+// ─── Select wrapper
 const SelectField = ({
   label, required, error, children, icon,
 }: {
@@ -52,7 +52,7 @@ const SelectField = ({
   </div>
 );
 
-// ─── Text / number input helper ───────────────────────────────────────────────
+// ─── Text / number input helper
 const Field = ({
   label, required, error, icon, children,
 }: {
@@ -82,7 +82,6 @@ const selectClass = (hasError?: boolean) =>
       : 'border-gray-200 focus:ring-2 focus:ring-brand-accent'
   }`;
 
-// ─── Main component ───────────────────────────────────────────────────────────
 export const WorkOrderModal = ({ isOpen, onClose, onSuccess, workOrder }: Props) => {
   const isEditing = !!workOrder;
   const { customers } = useCustomers();

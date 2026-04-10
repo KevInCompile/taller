@@ -1,15 +1,13 @@
   import { useMemo, useState, useEffect } from 'react';
 import { useCustomers } from '../../hooks/useCustomers';
 import { Plus, Search, UserPlus, Loader2, Users, X, Pencil, Trash2 } from 'lucide-react';
-import { customerService } from '../../api/customer.service';
 import type { Customer } from '../../models/customer.model';
-import Swal from 'sweetalert2';
 import { CustomerModal } from '../../components/customers/CustomerModal';
 import { VehicleModal } from '../../components/vehicles/VehicleModal';
 import { Link } from 'react-router-dom';
 import { usePagination } from '../../hooks/usePagination';
 import { Pagination } from '../../components/ui/Pagination';
-import { toast } from 'sonner';
+import { handleDeleteCustomer } from './handlers/customers-handlers';
 
 const PAGE_SIZE = 10;
 
@@ -34,29 +32,6 @@ export const CustomersPage = () => {
     setSelectedCustomer(null);
   };
 
-  const handleDelete = async (customer: Customer) => {
-    const result = await Swal.fire({
-      title: '¿Eliminar cliente?',
-      html: `Esta acción eliminará a <strong>${customer.firstName} ${customer.lastName}</strong> y todos sus datos asociados.`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#ef4444',
-      cancelButtonColor: '#1F2937',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar',
-      reverseButtons: true,
-    });
-
-    if (result.isConfirmed) {
-      try {
-        await customerService.delete(customer.id);
-        refresh();
-        toast.success("Cliente eliminado correctamente.")
-      } catch {
-        toast.error("No se pudo eliminar el cliente. Intenta nuevamente.")
-      }
-    }
-  };
 
   const filteredCustomers = useMemo(() => {
     if (!searchTerm.trim()) return customers;
@@ -89,6 +64,10 @@ export const CustomersPage = () => {
   useEffect(() => {
     resetPage();
   }, [searchTerm, resetPage]);
+
+  useEffect(() => {
+    window.document.title = 'Clientes'
+  }, [])
 
   const paginatedCustomers = useMemo(
     () => filteredCustomers.slice(pagination.offset, pagination.offset + PAGE_SIZE),
@@ -220,7 +199,7 @@ export const CustomersPage = () => {
                             <Pencil size={18} />
                           </button>
                           <button
-                            onClick={() => handleDelete(customer)}
+                            onClick={() => handleDeleteCustomer(customer, refresh)}
                             className="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-lg hover:bg-red-50"
                             title="Eliminar cliente"
                           >

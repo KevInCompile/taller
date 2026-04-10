@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, type LoginFormData } from '../schemas/auth.schema';
@@ -24,6 +24,7 @@ const Feature = ({ icon, text }: { icon: React.ReactNode; text: string }) => (
 );
 
 export const LoginPage = () => {
+
   const setAuth = useAuthStore(state => state.setAuth);
   const setWorkshop = useAuthStore(state => state.setWorkshop);
   const navigate = useNavigate();
@@ -61,6 +62,10 @@ export const LoginPage = () => {
       }
     }
   };
+
+  useEffect(() => {
+    window.document.title = 'Inicia sesión y gestiona tu taller'
+  }, [])
 
   return (
     <div className="min-h-screen flex">

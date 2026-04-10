@@ -62,7 +62,16 @@ export const WorkshopTab = () => {
       const success = await saveWorkshop(payload);
 
       if (success) {
-        setWorkshopStore(data);
+        // Crear objeto workshop con id si está disponible
+        const workshopToStore = {
+          id: workshopData?.id || 'temp-id',
+          name: data.name,
+          nit: data.nit,
+          phone: data.phone,
+          email: data.email,
+          address: data.address,
+        };
+        setWorkshopStore(workshopToStore);
         toast.success(isCreating ? '¡Taller creado con éxito!' : 'Datos actualizados');
       }
     } catch (error: unknown) {
