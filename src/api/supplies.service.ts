@@ -1,5 +1,5 @@
 import api from './auth.service';
-import type { Supply } from '../models/work-order.model';
+import type { Supply } from '../modules/orders/schemas/work-order.model';
 
 export interface SupplyInput {
   name: string;

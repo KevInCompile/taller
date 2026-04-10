@@ -1,4 +1,4 @@
-import type { WorkOrderStatus } from '../../models/work-order.model';
+import type { WorkOrderStatus } from '../../modules/orders/schemas/work-order.model';
 
 interface StatusBadgeProps {
   status: WorkOrderStatus | string;

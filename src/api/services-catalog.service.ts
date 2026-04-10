@@ -1,5 +1,5 @@
 import api from './auth.service';
-import type { Service } from '../models/work-order.model';
+import type { Service } from '../modules/orders/schemas/work-order.model';
 
 export interface ServiceInput {
   name: string;

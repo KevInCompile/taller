@@ -1,6 +1,6 @@
 import api from './auth.service';
-import type { CustomerFormData } from '../schemas/customer.schema';
-import type { Customer, Vehicle } from '../models/customer.model';
+import type { CustomerFormData } from '../modules/customers/schemas/customer.schema';
+import type { Customer, Vehicle } from '../modules/customers/schemas/customer.model';
 
 export const customerService = {
 

@@ -1,16 +1,16 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
-import { LoginPage } from '../pages/login';
-import { RegisterPage } from '../pages/register';
-import { SettingsPage } from '../pages/settings';
 import { DashboardLayout } from '../components/layout/LayoutDashboard';
 import App from '../App';
-import { WorkshopGuard } from '../components/auth/WorkshopGuard';
-import { CustomersPage } from '../pages/customers/customers';
-import { CustomerDetail } from '../pages/customers/CustomerDetails';
-import { OrdersPage } from '../pages/orders/orders';
-import { SuppliesPage } from '../pages/supplies/supplies';
-import { ServicesPage } from '../pages/services/services';
+import { WorkshopGuard } from '../components/guard/WorkshopGuard';
+import { LoginPage } from '../modules/login';
+import { RegisterPage } from '../modules/register';
+import { OrdersPage } from '../modules/orders/orders';
+import { SuppliesPage } from '../modules/supplies/supplies';
+import { ServicesPage } from '../modules/types-services/services';
+import { CustomersPage } from '../modules/customers/customers';
+import { CustomerDetail } from '../modules/customers/ui/CustomerDetails';
+import { SettingsPage } from '../modules/settings/settings';
 
 // Componente para proteger
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
           path: "customer/:id",
           element: <WorkshopGuard><CustomerDetail /></WorkshopGuard> // Protegido
         },
-        { path: "settings", element: <SettingsPage /> }, // Libre para que lo cree
+        { path: "settings", element: <SettingsPage /> },
       ]
   },
 ]);

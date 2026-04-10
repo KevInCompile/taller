@@ -1,6 +1,6 @@
 import api from './auth.service';
-import type { WorkOrderFormData } from '../schemas/work-order.schema';
-import type { WorkOrder } from '../models/work-order.model';
+import type { WorkOrderFormData } from '../modules/orders/schemas/work-order.schema';
+import type { WorkOrder } from '../modules/orders/schemas/work-order.model';
 
 export const workOrderService = {
 
@@ -25,7 +25,7 @@ export const workOrderService = {
   },
 
   updateStatus: async (id: string, status: string): Promise<WorkOrder> => {
-    const { data } = await api.patch(`/work-orders/${id}/status`, { status });
+    const { data } = await api.patch(`/work-orders/${id}`, { status });
     return data;
   },
 
