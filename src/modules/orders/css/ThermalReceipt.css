@@ -1,0 +1,49 @@
+/* ── Contenedor visible en pantalla ── */
+.receipt-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background: #f0f0f0;
+  min-height: 100vh;
+}
+
+.receipt {
+  width: 72mm; /* 80mm - márgenes */
+  font-family: 'Courier New', monospace;
+  font-size: 10pt; /* pt, no px — más fiel al papel */
+  line-height: 1.4;
+  color: #000;
+  background: #fff;
+  padding: 4mm 4mm;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* ── Utilitarios de layout ── */
+.receipt .center  { text-align: center; }
+.receipt .bold    { font-weight: bold; }
+.receipt .small   { font-size: 8pt; }
+.receipt .large   { font-size: 13pt; }
+
+.receipt .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+}
+.receipt .row .desc {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.receipt .row .price {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.receipt hr {
+  border: none;
+  border-top: 1px dashed #555;
+  margin: 3mm 0;
+}
+.receipt .spacer { height: 3mm; }

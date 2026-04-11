@@ -1,5 +1,5 @@
 export interface Orders {
-    customers: Customer[];
+  customers: Customer[];
 }
 
 export interface Customer {
