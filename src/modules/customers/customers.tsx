@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { usePagination } from '../../hooks/usePagination';
 import { Pagination } from '../../components/ui/Pagination';
 import { handleDeleteCustomer } from './handlers/customers-handlers';
+import { Header } from '../../components/ui/Header';
 
 const PAGE_SIZE = 10;
 
@@ -76,19 +77,9 @@ export const CustomersPage = () => {
 
   return (
     <div className="space-y-6 animate-fadeIn p-8">
-      <header className="flex justify-between items-center">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-800">Clientes</h1>
-          <p className="text-gray-500 text-sm">Base de datos de propietarios y vehículos.</p>
-        </div>
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="bg-brand-accent text-white px-4 py-2 rounded-xl flex items-center gap-2"
-        >
-          <UserPlus size={20} /> Nuevo Cliente
-        </button>
-      </header>
-
+      <Header title="Clientes" textButton="Nuevo Cliente" actionButton={() => setIsModalOpen(true)} iconButton={<UserPlus size={18} />} >
+        <p className="text-gray-500 text-sm">Base de datos de propietarios y vehículos.</p>
+      </Header>
       {/* Buscador */}
       <div className="relative group">
         <Search
@@ -100,7 +91,7 @@ export const CustomersPage = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Buscar por nombre, teléfono, email o placa (ABC-123)..."
-          className="w-full pl-10 pr-10 p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-accent outline-none transition-all shadow-sm group-hover:border-gray-300"
+          className="text-foreground w-full pl-10 pr-10 p-3 bg-elements border border-gray-200 rounded-xl outline-none transition-all shadow-sm group-hover:border-gray-300"
         />
         {searchTerm && (
           <button
@@ -113,7 +104,7 @@ export const CustomersPage = () => {
       </div>
 
       {/* Contenedor de Tabla / Loading */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden min-h-100">
+      <div className="bg-elements rounded-2xl border border-border-elements shadow-sm overflow-hidden min-h-100">
         {loading ? (
           <div className="flex flex-col items-center justify-center h-100 text-gray-400">
             <Loader2 className="animate-spin mb-4 text-brand-accent" size={40} />
@@ -124,7 +115,7 @@ export const CustomersPage = () => {
             <div className="bg-gray-50 p-6 rounded-full mb-4">
               <Users size={48} className="text-gray-300" />
             </div>
-            <h3 className="text-lg font-bold text-gray-700">No hay clientes aún</h3>
+            <h3 className="text-lg font-bold text-foreground">No hay clientes aún</h3>
             <p className="text-gray-500 max-w-xs mt-1">
               Registra a tu primer cliente para empezar a gestionar sus vehículos.
             </p>
@@ -134,7 +125,7 @@ export const CustomersPage = () => {
             <div className="bg-gray-50 p-6 rounded-full mb-4">
               <Search size={48} className="text-gray-300" />
             </div>
-            <h3 className="text-lg font-bold text-gray-700">Sin resultados</h3>
+            <h3 className="text-lg font-bold text-foreground">Sin resultados</h3>
             <p className="text-gray-500 max-w-xs mt-1">
               No se encontraron clientes que coincidan con "{searchTerm}".
             </p>
@@ -151,19 +142,19 @@ export const CustomersPage = () => {
                     <th className="px-6 py-4 text-right">Acciones</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-border-elements">
                   {paginatedCustomers.map((customer) => (
                     <tr key={customer.id} className="hover:bg-gray-50 transition-colors group">
                       <td className="px-6 py-4">
                         <Link
                           to={`/customer/${customer.id}`}
-                          className="font-bold text-gray-800 hover:text-brand-accent transition-colors"
+                          className="font-bold text-foreground hover:text-brand-accent transition-colors"
                         >
                           {customer.firstName} {customer.lastName}
                         </Link>
                       </td>
                       <td className="px-6 py-4 text-sm">
-                        <div className="text-gray-700">{customer.phone}</div>
+                        <div className="text-foreground">{customer.phone}</div>
                         <div className="text-gray-400 text-xs">{customer.email}</div>
                       </td>
                       <td className="px-6 py-4">
@@ -214,7 +205,7 @@ export const CustomersPage = () => {
             </div>
 
             {/* Paginación */}
-            <div className="px-6 py-4 border-t border-gray-100">
+            <div className="px-6 py-4 border-t border-border-elements">
               <Pagination
                 {...pagination}
                 totalItems={filteredCustomers.length}

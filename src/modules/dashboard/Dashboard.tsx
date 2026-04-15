@@ -4,14 +4,11 @@ import { useWorkOrders } from '../orders/hooks/useWorkOrders';
 import { useSupplies } from '../supplies/hooks/useSupplies';
 import { useCustomers } from '../customers/hooks/useCustomers';
 import { StatusBadge, PriorityBadge } from '../orders/ui/WorkOrderBadges';
-import {
-  TrendingUp, Wrench, Users, Package, AlertTriangle,
-  Plus, CheckCircle2, ClipboardList, Calendar, ChevronRight,
-  XCircle, Loader2, BarChart3, Target,
-} from 'lucide-react';
+import { TrendingUp, Wrench, Users, Package, AlertTriangle, Plus, CheckCircle2, ClipboardList, Calendar, ChevronRight, XCircle, Loader2, BarChart3, Target, BellDot } from 'lucide-react';
 import { formatCurrency } from '../../helpers/helpers';
+import { Header } from '../../components/ui/Header';
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+// Helpers
 
 const formatDateShort = (d: string) =>
   new Date(d).toLocaleDateString('es-CO', {
@@ -34,7 +31,7 @@ const formatFullDate = () =>
     year: 'numeric',
   });
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
+// Sub-components
 
 interface KpiCardProps {
   label: string;
@@ -49,7 +46,7 @@ interface KpiCardProps {
 
 const KpiCard = ({ label, value, sub, icon, accent, bg, trend, to }: KpiCardProps) => {
   const content = (
-    <div className={`bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col gap-3 h-full
+    <div className={`bg-elements rounded-2xl border border-elements shadow-sm p-5 flex flex-col gap-3 h-full
       ${to ? 'hover:shadow-md hover:border-gray-200 transition-all cursor-pointer' : ''}`}>
       <div className="flex items-start justify-between">
         <div className={`${bg} p-3 rounded-xl shrink-0`}>
@@ -66,7 +63,7 @@ const KpiCard = ({ label, value, sub, icon, accent, bg, trend, to }: KpiCardProp
         )}
       </div>
       <div>
-        <p className="text-2xl font-bold text-gray-800 leading-tight">{value}</p>
+        <p className="text-2xl font-bold text-foreground leading-tight">{value}</p>
         <p className="text-xs text-gray-400 font-medium mt-0.5">{label}</p>
         {sub && <p className="text-xs text-gray-500 mt-1 font-semibold">{sub}</p>}
       </div>
@@ -76,7 +73,7 @@ const KpiCard = ({ label, value, sub, icon, accent, bg, trend, to }: KpiCardProp
   return to ? <Link to={to} className="block h-full">{content}</Link> : content;
 };
 
-// ─── Main Component
+// Main Component
 
 export const Dashboard = () => {
   const navigate = useNavigate();
@@ -86,7 +83,7 @@ export const Dashboard = () => {
 
   const loading = loadingOrders || loadingSupplies || loadingCustomers;
 
-  // ── Derived metrics
+  // Derived metrics
   const completedOrders = useMemo(
     () => workOrders.filter(o => o.status === 'COMPLETED'),
     [workOrders],
@@ -177,23 +174,11 @@ export const Dashboard = () => {
 
   return (
     <div className="space-y-6 p-8 animate-fadeIn">
-      <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-800">
-            {getGreeting()}
-          </h1>
-          <p className="text-gray-400 text-sm mt-0.5 capitalize">
-            {formatFullDate()} · Resumen general del taller
-          </p>
-        </div>
-        <button
-          onClick={() => navigate('/orders')}
-          className="self-start sm:self-auto bg-brand-accent text-white px-4 py-2.5 rounded-xl flex items-center gap-2 hover:bg-orange-600 transition-colors shadow-lg shadow-orange-100 font-semibold text-sm"
-        >
-          <Plus size={18} /> Nueva Orden
-        </button>
-      </header>
-
+      <Header title={getGreeting()} textButton="Nueva Orden" actionButton={() => navigate('/orders')} iconButton={<Plus size={18} />}>
+        <p className="text-gray-400 text-sm mt-0.5 capitalize">
+          {formatFullDate()} · Resumen general del taller
+        </p>
+      </Header>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <KpiCard
           label="Ingresos del mes"
@@ -241,9 +226,9 @@ export const Dashboard = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
 
-        <div className="lg:col-span-3 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-            <h2 className="font-bold text-gray-800 flex items-center gap-2">
+        <div className="lg:col-span-3 bg-elements rounded-2xl border border-elements shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-elements">
+            <h2 className="font-bold text-foreground flex items-center gap-2">
               <ClipboardList size={18} className="text-brand-accent" />
               Últimas Órdenes
             </h2>
@@ -274,7 +259,7 @@ export const Dashboard = () => {
 
                   {/* Info */}
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-gray-800 truncate">
+                    <p className="text-sm font-semibold text-foreground truncate">
                       {order.customer
                         ? `${order.customer.firstName} ${order.customer.lastName}`
                         : 'Sin cliente'}
@@ -299,7 +284,7 @@ export const Dashboard = () => {
 
                   {/* Total + date */}
                   <div className="text-right shrink-0">
-                    <p className="text-sm font-bold text-gray-800 tabular-nums">
+                    <p className="text-sm font-bold text-foreground tabular-nums">
                       {formatCurrency(order.total)}
                     </p>
                     <p className="text-[10px] text-gray-400 mt-0.5">
@@ -316,9 +301,9 @@ export const Dashboard = () => {
         <div className="lg:col-span-2 flex flex-col gap-5">
 
           {/* Stock Alerts */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex-1">
-            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-              <h2 className="font-bold text-gray-800 flex items-center gap-2">
+          <div className="bg-elements rounded-2xl border border-elements shadow-sm overflow-hidden flex-1">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-elements">
+              <h2 className="font-bold text-foreground flex items-center gap-2">
                 <AlertTriangle size={16} className={stockAlerts.length > 0 ? 'text-amber-500' : 'text-gray-300'} />
                 Alertas de Stock
                 {stockAlerts.length > 0 && (
@@ -353,7 +338,7 @@ export const Dashboard = () => {
                         }
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-semibold text-gray-800 truncate">{supply.name}</p>
+                        <p className="text-xs font-semibold text-foreground truncate">{supply.name}</p>
                         <p className={`text-[10px] font-bold mt-0.5 ${isOut ? 'text-red-500' : 'text-amber-600'}`}>
                           {isOut ? 'Sin stock' : `${supply.stock} unidad${supply.stock !== 1 ? 'es' : ''}`}
                         </p>
@@ -380,9 +365,9 @@ export const Dashboard = () => {
           </div>
 
           {/* Today's Orders */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-              <h2 className="font-bold text-gray-800 flex items-center gap-2">
+          <div className="bg-elements rounded-2xl border border-elements shadow-sm overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-elements">
+              <h2 className="font-bold text-foreground flex items-center gap-2">
                 <Calendar size={16} className="text-brand-accent" />
                 Programadas Hoy
                 {todayOrders.length > 0 && (
@@ -406,7 +391,7 @@ export const Dashboard = () => {
                       {order.customer?.firstName?.charAt(0) ?? '?'}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-semibold text-gray-800 truncate">
+                      <p className="text-xs font-semibold text-foreground truncate">
                         {order.customer
                           ? `${order.customer.firstName} ${order.customer.lastName}`
                           : 'Sin cliente'}
@@ -436,8 +421,8 @@ export const Dashboard = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
         {/* Orders by status */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sm:col-span-2">
-          <h3 className="text-sm font-bold text-gray-700 mb-4 flex items-center gap-2">
+        <div className="bg-elements rounded-2xl border border-elements shadow-sm p-5 sm:col-span-2">
+          <h3 className="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
             <BarChart3 size={16} className="text-brand-accent" /> Distribución de Órdenes
           </h3>
           <div className="space-y-2.5">
@@ -451,7 +436,7 @@ export const Dashboard = () => {
               return (
                 <div key={label} className="flex items-center gap-3">
                   <p className="text-xs text-gray-500 w-24 shrink-0">{label}</p>
-                  <div className="flex-1 bg-gray-100 rounded-full h-2 overflow-hidden">
+                  <div className="flex-1 bg-progress-fill rounded-full h-2 overflow-hidden">
                     <div
                       className={`h-2 rounded-full transition-all duration-700 ${color}`}
                       style={{ width: `${pct}%` }}
@@ -468,13 +453,13 @@ export const Dashboard = () => {
         </div>
 
         {/* Completion rate */}
-        <div className="bg-brand-dark rounded-2xl shadow-sm p-5 flex flex-col justify-between">
+        <div className="bg-elements rounded-2xl shadow-sm p-5 flex flex-col justify-between">
           <div>
-            <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Tasa de Completación</p>
-            <p className="text-4xl font-bold text-white mt-2">{completionRate}<span className="text-xl text-gray-400">%</span></p>
+            <p className="text-xs text-foreground font-semibold uppercase tracking-wider">Tasa de Completación</p>
+            <p className="text-4xl font-bold text-foreground mt-2">{completionRate}<span className="text-xl text-gray-400">%</span></p>
           </div>
           <div>
-            <div className="w-full bg-white/10 rounded-full h-2 mt-4 overflow-hidden">
+            <div className="w-full bg-progress-fill rounded-full h-2 mt-4 overflow-hidden">
               <div
                 className="h-2 rounded-full bg-brand-accent transition-all duration-700"
                 style={{ width: `${completionRate}%` }}
@@ -487,7 +472,7 @@ export const Dashboard = () => {
         </div>
 
         {/* Supplies quick stat */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col justify-between">
+        <div className="bg-elements rounded-2xl border border-elements shadow-sm p-5 flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Inventario</p>
             <Link to="/supplies" className="text-brand-accent hover:text-orange-600">
@@ -500,7 +485,7 @@ export const Dashboard = () => {
                 <span className="w-2 h-2 rounded-full bg-green-500 shrink-0" />
                 <p className="text-xs text-gray-600">Disponibles</p>
               </div>
-              <span className="text-sm font-bold text-gray-800">{supplies.filter(s => s.stock >= 5).length}</span>
+              <span className="text-sm font-bold text-foreground">{supplies.filter(s => s.stock >= 5).length}</span>
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -517,7 +502,7 @@ export const Dashboard = () => {
               <span className="text-sm font-bold text-red-500">{supplies.filter(s => s.stock === 0).length}</span>
             </div>
           </div>
-          <div className="mt-3 pt-3 border-t border-gray-100">
+          <div className="mt-3 pt-3 border-t border-elements">
             <div className="flex items-center gap-1.5">
               <Package size={13} className="text-gray-400" />
               <p className="text-xs text-gray-400">{supplies.length} suministros en total</p>

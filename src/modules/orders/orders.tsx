@@ -5,6 +5,7 @@ import { WorkOrderModal } from './ui/modals/WorkOrderModal';
 import type {  WorkOrder } from './schemas/work-order.model';
 import Stats from './ui/Stats';
 import { TableOrders } from './ui/TableOrders';
+import { Header } from '../../components/ui/Header';
 
 export const OrdersPage = () => {
   const { workOrders, loading, refresh } = useWorkOrders();
@@ -23,18 +24,9 @@ export const OrdersPage = () => {
   return (
     <div className="space-y-6 animate-fadeIn p-8">
       {/* Header */}
-      <header className="flex justify-between items-center">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-800">Órdenes de Trabajo</h1>
-          <p className="text-gray-500 text-sm">Gestiona los servicios activos del taller.</p>
-        </div>
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="bg-brand-accent text-white px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-orange-600 transition-colors shadow-lg shadow-orange-100"
-        >
-          <Plus size={20} /> Nueva Orden
-        </button>
-      </header>
+      <Header title="Órdenes de Trabajo" textButton="Nueva Orden" actionButton={() => setIsModalOpen(true)} iconButton={<Plus size={18} />}>
+        <p className="text-gray-500 text-sm">Gestiona los servicios activos del taller.</p>
+      </Header>
       {/* Stat cards */}
       <Stats workOrders={workOrders}/>
 

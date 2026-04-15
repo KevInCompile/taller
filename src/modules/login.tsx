@@ -66,7 +66,7 @@ export const LoginPage = () => {
           <div className="w-9 h-9 bg-brand-accent rounded-xl flex items-center justify-center">
             <CarFront size={20} className="text-white" />
           </div>
-          <span className="text-xl font-bold text-gray-800">
+          <span className="text-xl font-bold text-foreground">
             TALLER <span className="text-brand-accent">NOW</span>
           </span>
         </div>
@@ -76,7 +76,7 @@ export const LoginPage = () => {
 
           {/* Heading */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-800">Bienvenido de nuevo</h2>
+            <h2 className="text-2xl font-bold text-foreground">Bienvenido de nuevo</h2>
             <p className="text-gray-400 text-sm mt-1.5">
               Ingresa tus credenciales para acceder al panel.
             </p>
@@ -87,7 +87,7 @@ export const LoginPage = () => {
 
             {/* Email */}
             <div>
-              <label className="text-sm font-semibold text-gray-700 mb-1.5 block">
+              <label className="text-sm font-semibold text-foreground mb-1.5 block">
                 Correo electrónico
               </label>
               <div className="relative">
@@ -100,7 +100,7 @@ export const LoginPage = () => {
                   type="email"
                   placeholder="correo@taller.com"
                   autoComplete="email"
-                  className={`w-full pl-10 pr-4 py-3 bg-white border rounded-xl text-sm outline-none transition-all shadow-sm
+                  className={`text-elements w-full pl-10 pr-4 py-3 bg-white border rounded-xl text-sm outline-none transition-all shadow-sm
                     ${errors.email
                       ? 'border-red-400 focus:ring-2 focus:ring-red-200'
                       : 'border-gray-200 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent'
@@ -116,7 +116,7 @@ export const LoginPage = () => {
 
             {/* Password */}
             <div>
-              <label className="text-sm font-semibold text-gray-700 mb-1.5 block">
+              <label className="text-sm font-semibold text-foreground mb-1.5 block">
                 Contraseña
               </label>
               <div className="relative">
@@ -129,7 +129,7 @@ export const LoginPage = () => {
                   type={showPass ? 'text' : 'password'}
                   placeholder="••••••••"
                   autoComplete="current-password"
-                  className={`w-full pl-10 pr-11 py-3 bg-white border rounded-xl text-sm outline-none transition-all shadow-sm
+                  className={`text-elements w-full pl-10 pr-11 py-3 bg-white border rounded-xl text-sm outline-none transition-all shadow-sm
                     ${errors.password
                       ? 'border-red-400 focus:ring-2 focus:ring-red-200'
                       : 'border-gray-200 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent'
@@ -158,7 +158,7 @@ export const LoginPage = () => {
               disabled={isSubmitting}
               className="w-full bg-brand-accent hover:bg-orange-600 disabled:opacity-60 disabled:cursor-not-allowed
                 text-white font-bold py-3.5 rounded-xl transition-all duration-200
-                shadow-lg shadow-orange-200 hover:shadow-orange-300 hover:-translate-y-0.5
+                 hover:shadow-orange-300 hover:-translate-y-0.5
                 active:translate-y-0 flex items-center justify-center gap-2 text-sm mt-2"
             >
               {isSubmitting ? (

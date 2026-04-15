@@ -95,7 +95,7 @@ export const TableOrders: React.FC<Props> = (props) => {
       {/* Search */}
       <div className="relative flex-1 min-w-64 group">
         <Search
-          className={`absolute left-3 top-3 transition-colors ${searchTerm ? 'text-brand-accent' : 'text-gray-400'}`}
+          className={`absolute left-3 top-3 transition-colors`}
           size={18}
         />
         <input
@@ -103,7 +103,7 @@ export const TableOrders: React.FC<Props> = (props) => {
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
           placeholder="Buscar por cliente, placa, mecánico, servicio..."
-          className="w-full pl-9 pr-9 py-2.5 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-accent outline-none transition-all shadow-sm text-sm group-hover:border-gray-300"
+          className="text-foreground w-full pl-9 pr-9 py-2.5 bg-elements border border-border-elements rounded-xl focus:ring-2 outline-none transition-all shadow-sm text-sm group-hover:border-gray-300"
         />
         {searchTerm && (
           <button
@@ -121,7 +121,7 @@ export const TableOrders: React.FC<Props> = (props) => {
         <select
           value={statusFilter}
           onChange={e => setStatusFilter(e.target.value as WorkOrderStatus | 'ALL')}
-          className="pl-8 pr-8 py-2.5 bg-white border border-gray-200 rounded-xl outline-none transition-all shadow-sm text-sm appearance-none focus:ring-2 focus:ring-brand-accent cursor-pointer"
+          className="text-foreground pl-8 pr-8 py-2.5 bg-elements border border-border-elements rounded-xl outline-none transition-all shadow-sm text-sm appearance-none focus:ring-2 focus:ring-brand-accent cursor-pointer"
         >
           <option value="ALL">Todos los estados</option>
           {STATUS_OPTIONS.map(o => (
@@ -136,7 +136,7 @@ export const TableOrders: React.FC<Props> = (props) => {
         <select
           value={priorityFilter}
           onChange={e => setPriorityFilter(e.target.value as WorkOrderPriority | 'ALL')}
-          className="pl-8 pr-8 py-2.5 bg-white border border-gray-200 rounded-xl outline-none transition-all shadow-sm text-sm appearance-none focus:ring-2 focus:ring-brand-accent cursor-pointer"
+          className="text-foreground  pl-8 pr-8 py-2.5 bg-elements border border-border-elements rounded-xl outline-none transition-all shadow-sm text-sm appearance-none focus:ring-2 focus:ring-brand-accent cursor-pointer"
         >
           <option value="ALL">Todas las prioridades</option>
           {PRIORITY_OPTIONS.map(o => (
@@ -149,13 +149,13 @@ export const TableOrders: React.FC<Props> = (props) => {
       {hasActiveFilters && (
         <button
           onClick={clearFilters}
-          className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-red-500 transition-colors px-3 py-2.5 rounded-xl hover:bg-red-50 border border-gray-200"
+          className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-red-500 transition-colors px-3 py-2.5 rounded-xl hover:bg-red-50 border border-border-elements"
         >
           <X size={14} /> Limpiar
         </button>
       )}
     </div>
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden min-h-100">
+    <div className="bg-elements rounded-2xl border border-border-elements shadow-sm overflow-hidden min-h-100">
       {loading ? (
         <div className="flex flex-col items-center justify-center h-100 text-gray-400">
           <Loader2 className="animate-spin mb-4 text-brand-accent" size={40} />
@@ -167,7 +167,7 @@ export const TableOrders: React.FC<Props> = (props) => {
           <div className="bg-gray-50 p-6 rounded-full mb-4">
             <ClipboardList size={48} className="text-gray-300" />
           </div>
-          <h3 className="text-lg font-bold text-gray-700">No hay órdenes aún</h3>
+          <h3 className="text-lg font-bold text-foreground">No hay órdenes aún</h3>
           <p className="text-gray-500 max-w-xs mt-1 text-sm">
             Crea tu primera orden de trabajo para comenzar a gestionar los servicios del taller.
           </p>
@@ -200,7 +200,7 @@ export const TableOrders: React.FC<Props> = (props) => {
         <div className="flex flex-col">
           <div className="overflow-x-auto">
             <table className="w-full text-left">
-              <thead className="bg-gray-50 text-gray-500 text-xs uppercase font-bold border-b border-gray-100">
+              <thead className="bg-gray-50 text-foreground text-xs uppercase font-bold border-b border-border-elements">
                 <tr>
                   <th className="px-6 py-4">Orden</th>
                   <th className="px-6 py-4">Cliente</th>
@@ -212,7 +212,7 @@ export const TableOrders: React.FC<Props> = (props) => {
                   <th className="px-6 py-4 text-right">Acciones</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-border-elements">
                 {paginated.map(order => (
                   <tr
                     key={order.id}
@@ -220,7 +220,7 @@ export const TableOrders: React.FC<Props> = (props) => {
                   >
                     {/* Orden */}
                     <td className="px-6 py-4">
-                      <p className="font-bold text-gray-800 font-mono text-sm">
+                      <p className="font-bold text-foreground font-mono text-sm">
                         #{shortId(order.id)}
                       </p>
                       <p className="text-[11px] text-gray-400 mt-0.5">
@@ -232,7 +232,7 @@ export const TableOrders: React.FC<Props> = (props) => {
                     <td className="px-6 py-4">
                       {order.customer ? (
                         <>
-                          <p className="font-semibold text-gray-800 text-sm">
+                          <p className="font-semibold text-foreground text-sm">
                             {order.customer.firstName} {order.customer.lastName}
                           </p>
                           <p className="text-[11px] text-gray-400 mt-0.5">{order.customer.phone}</p>
@@ -260,7 +260,7 @@ export const TableOrders: React.FC<Props> = (props) => {
 
                     {/* Servicio / Mecánico */}
                     <td className="px-6 py-4">
-                      <p className="font-semibold text-gray-800 text-sm">
+                      <p className="font-semibold text-foreground text-sm">
                         {order.service?.name ?? '—'}
                       </p>
                       <p className="text-[11px] text-gray-400 mt-0.5 flex items-center gap-1">
@@ -280,7 +280,7 @@ export const TableOrders: React.FC<Props> = (props) => {
 
                     {/* Total */}
                     <td className="px-6 py-4 text-right">
-                      <p className="font-bold text-gray-800 text-sm tabular-nums">
+                      <p className="font-bold text-foreground text-sm tabular-nums">
                         {formatCurrency(order.total)}
                       </p>
                       {order.subtotal !== order.total && (
@@ -330,7 +330,7 @@ export const TableOrders: React.FC<Props> = (props) => {
           </div>
 
           {/* Pagination */}
-          <div className="px-6 py-4 border-t border-gray-100">
+          <div className="px-6 py-4 border-t border-border-elements">
             <Pagination
               {...pagination}
               totalItems={filtered.length}

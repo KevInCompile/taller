@@ -4,6 +4,20 @@
   --color-brand-dark: #1a1a1a;
   --color-brand-accent: #f97316;
   --color-brand-info: #0ea5e9;
+  --color-brand-darkmode: #242424;
+  --color-elements: white;
+  --color-foreground: var(--color-gray-800);
+  --color-progress-fill: var(--color-gray-100);
+  --color-border-elements: var(--color-gray-100);
+}
+
+[data-theme="dark"] {
+  --color-gray-50: var(--color-brand-darkmode);
+  --color-gray-900: var(--color-brand-accent);
+  --color-elements: #1a1a1a;
+  --color-foreground: #e2e8f0;
+  --color-progress-fill: #ffffff19;
+  --color-border-elements: var(--color-neutral-700);
 }
 
 body {

@@ -45,7 +45,7 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <aside className={`transition-all ease-linear bg-brand-dark text-white py-6 flex flex-col items-center h-screen sticky top-0 ${isMenuSmall ? 'w-30 min-w-30 px-4' : 'w-64 min-w-64 px-6'}`}>
+    <aside className={`transition-all ease-linear bg-brand-dark text-white py-6 flex flex-col h-screen sticky top-0 ${isMenuSmall ? 'w-30 min-w-30 px-4 items-center' : 'w-64 min-w-64 px-6'}`}>
 
       {/* Logo */}
       <div className={`mb-6 w-full ${isMenuSmall ? 'text-center' : 'flex justify-between items-center'} transition-discrete`}>
