@@ -83,7 +83,7 @@ export const ProfileTab = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="flex items-center gap-2 bg-brand-dark text-white px-8 py-3 rounded-xl hover:bg-black transition disabled:opacity-50"
+          className="flex items-center gap-2 bg-foreground text-elements px-8 py-3 rounded-xl hover:bg-black transition disabled:opacity-50"
         >
           {isSubmitting ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
           Guardar Cambios

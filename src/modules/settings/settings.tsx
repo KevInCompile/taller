@@ -12,8 +12,7 @@ export const SettingsPage = () => {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6">Configuración</h1>
-
-      <div className="flex gap-4 border-b border-gray-200 mb-8">
+      <div className="flex gap-4 border-b border-border-elements mb-8">
         <TabButton
           active={activeTab === 'profile'}
           onClick={() => setActiveTab('profile')}
@@ -28,7 +27,7 @@ export const SettingsPage = () => {
         />
       </div>
 
-      <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+      <div className="bg-elements text-foreground p-8 rounded-2xl shadow-sm border border-border-elements">
         {activeTab === 'profile' ? <ProfileTab /> : <WorkshopTab />}
       </div>
     </div>

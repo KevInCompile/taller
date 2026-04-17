@@ -23,7 +23,7 @@ export const FormInput = <T extends FieldValues>({
 
   return (
     <div className={`w-full ${className ?? ''}`}>
-      <label className="block text-sm font-semibold text-gray-700 mb-1">{label}</label>
+      <label className="block text-sm font-semibold text-foreground mb-1">{label}</label>
       <input
         type={type}
         placeholder={placeholder}
@@ -31,7 +31,7 @@ export const FormInput = <T extends FieldValues>({
         className={`w-full p-3 bg-gray-50 border rounded-lg outline-none transition-all shadow-sm ${
           errorMessage
             ? 'border-red-500 focus:ring-2 focus:ring-red-200'
-            : 'border-gray-200 focus:ring-2 focus:ring-brand-accent'
+            : 'border-border-elements focus:ring-2 focus:ring-brand-accent'
         }`}
       />
       {errorMessage && (

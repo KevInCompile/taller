@@ -12,6 +12,8 @@ import type { Supply } from '../orders/schemas/work-order.model';
 import Swal from 'sweetalert2';
 import { toast } from 'sonner';
 import { formatCurrency } from '../../helpers/helpers';
+import StatCard from '../orders/ui/StatCard';
+import { Header } from '../../components/ui/Header';
 
 const PAGE_SIZE = 10;
 
@@ -22,35 +24,6 @@ const getStockLevel = (stock: number): StockLevel => {
   if (stock < 5)   return 'low';
   return 'ok';
 };
-
-// ─── Sub-components ───────────────────────────────────────────────────────────
-
-interface StatCardProps {
-  label: string;
-  value: number;
-  icon: React.ReactNode;
-  accent: string;
-  bg: string;
-  onClick?: () => void;
-  active?: boolean;
-}
-
-const StatCard = ({ label, value, icon, accent, bg, onClick, active }: StatCardProps) => (
-  <button
-    onClick={onClick}
-    className={`bg-white rounded-2xl border shadow-sm p-5 flex items-center gap-4 text-left w-full transition-all
-      ${onClick ? 'cursor-pointer hover:shadow-md' : 'cursor-default'}
-      ${active ? 'border-brand-accent ring-2 ring-brand-accent/20' : 'border-gray-100'}`}
-  >
-    <div className={`${bg} p-3 rounded-xl shrink-0`}>
-      <div className={accent}>{icon}</div>
-    </div>
-    <div>
-      <p className="text-2xl font-bold text-gray-800">{value}</p>
-      <p className="text-xs text-gray-400 font-medium mt-0.5">{label}</p>
-    </div>
-  </button>
-);
 
 const StockBadge = ({ stock }: { stock: number }) => {
   const level = getStockLevel(stock);
@@ -113,7 +86,7 @@ export const SuppliesPage = () => {
     });
   }, [supplies, searchTerm, stockFilter]);
 
-  // ── Pagination ────────────────────────────────────────────────────────────
+  // ── Paginatio
   const { resetPage, ...pagination } = usePagination({
     totalItems:   filtered.length,
     itemsPerPage: PAGE_SIZE,
@@ -126,7 +99,7 @@ export const SuppliesPage = () => {
     [filtered, pagination.offset],
   );
 
-  // ── Handlers ──────────────────────────────────────────────────────────────
+  // ── Handlers
   const handleEdit = (supply: Supply) => {
     setSelectedSupply(supply);
     setIsModalOpen(true);
@@ -177,23 +150,19 @@ export const SuppliesPage = () => {
     setStockFilter('ALL');
   };
 
-  // ── Render ────────────────────────────────────────────────────────────────
+  // ── Render
   return (
     <div className="space-y-6 animate-fadeIn p-8">
 
       {/* Header */}
-      <header className="flex justify-between items-center">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-800">Suministros</h1>
-          <p className="text-gray-500 text-sm">Gestiona el inventario de repuestos y materiales.</p>
-        </div>
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="bg-brand-accent text-white px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-orange-600 transition-colors shadow-lg shadow-orange-100 font-semibold"
-        >
-          <Plus size={20} /> Nuevo Suministro
-        </button>
-      </header>
+      <Header
+        title="Suministros"
+        textButton="Nuevo suministro"
+        actionButton={() => setIsModalOpen(true)}
+        iconButton={<Plus size={18} />}
+      >
+        <p className="text-gray-500 text-sm">Gestiona el inventario de repuestos y materiales.</p>
+      </Header>
 
       {/* Stats — clickable to filter */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -245,7 +214,7 @@ export const SuppliesPage = () => {
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
             placeholder="Buscar por nombre, descripción o precio..."
-            className="w-full pl-9 pr-9 py-2.5 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-accent outline-none transition-all shadow-sm text-sm group-hover:border-gray-300"
+            className="text-foreground w-full pl-9 pr-9 py-2.5 bg-elements border border-border-elements rounded-xl focus:ring-2 focus:ring-brand-accent outline-none transition-all shadow-sm text-sm group-hover:border-gray-300"
           />
           {searchTerm && (
             <button
@@ -281,7 +250,7 @@ export const SuppliesPage = () => {
       </div>
 
       {/* Table container */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden min-h-100">
+      <div className="bg-elements rounded-2xl border border-border-elements shadow-sm overflow-hidden min-h-100">
         {loading ? (
           <div className="flex flex-col items-center justify-center h-100 text-gray-400">
             <Loader2 className="animate-spin mb-4 text-brand-accent" size={40} />
@@ -293,7 +262,7 @@ export const SuppliesPage = () => {
             <div className="bg-gray-50 p-6 rounded-full mb-4">
               <Package size={48} className="text-gray-300" />
             </div>
-            <h3 className="text-lg font-bold text-gray-700">No hay suministros registrados</h3>
+            <h3 className="text-lg font-bold text-foreground">No hay suministros registrados</h3>
             <p className="text-gray-500 max-w-xs mt-1 text-sm">
               Agrega repuestos, aceites, filtros y demás materiales al inventario del taller.
             </p>
@@ -310,7 +279,7 @@ export const SuppliesPage = () => {
             <div className="bg-gray-50 p-6 rounded-full mb-4">
               <Search size={48} className="text-gray-300" />
             </div>
-            <h3 className="text-lg font-bold text-gray-700">Sin resultados</h3>
+            <h3 className="text-lg font-bold text-foreground">Sin resultados</h3>
             <p className="text-gray-500 max-w-xs mt-1 text-sm">
               No se encontraron suministros con los filtros aplicados.
             </p>
@@ -326,7 +295,7 @@ export const SuppliesPage = () => {
           <div className="flex flex-col">
             <div className="overflow-x-auto">
               <table className="w-full text-left">
-                <thead className="bg-gray-50 text-gray-500 text-xs uppercase font-bold border-b border-gray-100">
+                <thead className="bg-gray-50 text-gray-500 text-xs uppercase font-bold border-b border-border-elements">
                   <tr>
                     <th className="px-6 py-4">Suministro</th>
                     <th className="px-6 py-4">Descripción</th>
@@ -336,7 +305,7 @@ export const SuppliesPage = () => {
                     <th className="px-6 py-4 text-right">Acciones</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-border-elements">
                   {paginated.map(supply => {
                     const level      = getStockLevel(supply.stock);
                     const totalValue = Number(supply.price) * supply.stock;
@@ -368,7 +337,7 @@ export const SuppliesPage = () => {
                               />
                             </div>
                             <div>
-                              <p className="font-semibold text-gray-800 text-sm">{supply.name}</p>
+                              <p className="font-semibold text-foreground text-sm">{supply.name}</p>
                               <p className="text-[10px] text-gray-400 mt-0.5 font-mono">
                                 #{supply.id.slice(-6).toUpperCase()}
                               </p>
@@ -385,7 +354,7 @@ export const SuppliesPage = () => {
 
                         {/* Price */}
                         <td className="px-6 py-4 text-right">
-                          <p className="font-bold text-gray-800 text-sm tabular-nums">
+                          <p className="font-bold text-foreground text-sm tabular-nums">
                             {formatCurrency(supply.price)}
                           </p>
                         </td>
@@ -398,7 +367,7 @@ export const SuppliesPage = () => {
                         {/* Total value */}
                         <td className="px-6 py-4 text-right">
                           {supply.stock > 0 ? (
-                            <p className="font-semibold text-gray-700 text-sm tabular-nums">
+                            <p className="font-semibold text-foreground text-sm tabular-nums">
                               {formatCurrency(totalValue)}
                             </p>
                           ) : (
@@ -434,7 +403,7 @@ export const SuppliesPage = () => {
             </div>
 
             {/* Pagination */}
-            <div className="px-6 py-4 border-t border-gray-100">
+            <div className="px-6 py-4 border-t border-border-elements">
               <Pagination
                 {...pagination}
                 totalItems={filtered.length}

@@ -14,13 +14,13 @@ export const InputField = ({
   disabled = false,
 }: InputFieldProps) => (
   <div>
-    <label className="block text-sm font-semibold text-gray-700 mb-1">{label}</label>
+    <label className="block text-sm font-semibold text-foreground mb-1">{label}</label>
     <input
       type={type}
       disabled={disabled}
       value={value || ''}
       onChange={(e) => onChange?.(e.target.value)}
-      className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-accent outline-none disabled:opacity-60 transition-all shadow-sm"
+      className="w-full p-3 bg-gray-50 border border-border-elements rounded-lg focus:ring-2 focus:ring-brand-accent outline-none disabled:opacity-60 transition-all shadow-sm"
     />
   </div>
 );

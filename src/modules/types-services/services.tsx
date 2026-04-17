@@ -12,6 +12,7 @@ import type { Service } from '../orders/schemas/work-order.model';
 import Swal from 'sweetalert2';
 import { toast } from 'sonner';
 import { formatDate } from '../../helpers/helpers';
+import { Header } from '../../components/ui/Header';
 
 const PAGE_SIZE = 10;
 
@@ -77,39 +78,12 @@ export const ServicesPage = () => {
 
   return (
     <div className="space-y-6 animate-fadeIn p-8">
-
       {/* Header */}
-      <header className="flex justify-between items-center">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-800">Tipos de Servicio</h1>
-          <p className="text-gray-500 text-sm">
-            Catálogo de servicios disponibles en el taller.
-          </p>
-        </div>
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="bg-brand-accent text-white px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-orange-600 transition-colors shadow-lg shadow-orange-100 font-semibold"
-        >
-          <Plus size={20} /> Nuevo Servicio
-        </button>
-      </header>
-
-      {/* Stats bar */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-brand-dark rounded-2xl shadow-sm p-5 flex items-center gap-4">
-          <div className="bg-white/10 p-3 rounded-xl shrink-0">
-            <ClipboardList size={20} className="text-brand-accent" />
-          </div>
-          <div>
-            <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Uso de servicios</p>
-            <p className="text-sm text-white font-medium mt-0.5">
-              Usados en órdenes de trabajo
-            </p>
-          </div>
-        </div>
-
-      </div>
-
+      <Header title="Tipos de Servicio" textButton="Nuevo Servicio" actionButton={() => setIsModalOpen(true)} iconButton={<Plus size={20} />}>
+        <p className="text-sm text-white font-medium mt-0.5">
+          Usados en órdenes de trabajo
+        </p>
+      </Header>
       {/* Search */}
       <div className="relative group max-w-md">
         <Search
@@ -123,32 +97,30 @@ export const ServicesPage = () => {
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
           placeholder="Buscar tipo de servicio..."
-          className="w-full pl-9 pr-9 py-2.5 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-accent outline-none transition-all shadow-sm text-sm group-hover:border-gray-300"
+          className="text-foreground w-full pl-9 pr-9 py-2.5 bg-elements border border-border-elements rounded-xl focus:ring-2 focus:ring-brand-accent outline-none transition-all shadow-sm text-sm group-hover:border-gray-300"
         />
         {searchTerm && (
           <button
             onClick={() => setSearchTerm('')}
-            className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+            className="absolute right-3 top-3 text-gray-400 hover:text-foreground"
           >
             <X size={16} />
           </button>
         )}
       </div>
-
       {/* Table container */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden min-h-100">
+      <div className="bg-elements rounded-2xl border border-border-elements shadow-sm overflow-hidden min-h-100">
         {loading ? (
           <div className="flex flex-col items-center justify-center h-100 text-gray-400">
             <Loader2 className="animate-spin mb-4 text-brand-accent" size={40} />
             <p className="font-medium animate-pulse">Cargando catálogo de servicios...</p>
           </div>
-
         ) : services.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-100 text-center p-8">
             <div className="bg-gray-50 p-6 rounded-full mb-4">
               <ClipboardList size={48} className="text-gray-300" />
             </div>
-            <h3 className="text-lg font-bold text-gray-700">Sin tipos de servicio</h3>
+            <h3 className="text-lg font-bold text-foreground">Sin tipos de servicio</h3>
             <p className="text-gray-500 max-w-xs mt-1 text-sm">
               Define los tipos de servicio que ofrece tu taller para usarlos en las órdenes de trabajo.
             </p>
@@ -159,13 +131,12 @@ export const ServicesPage = () => {
               <Plus size={16} /> Crear Primer Servicio
             </button>
           </div>
-
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-100 text-center p-8">
             <div className="bg-gray-50 p-6 rounded-full mb-4">
               <Search size={48} className="text-gray-300" />
             </div>
-            <h3 className="text-lg font-bold text-gray-700">Sin resultados</h3>
+            <h3 className="text-lg font-bold text-foreground">Sin resultados</h3>
             <p className="text-gray-500 max-w-xs mt-1 text-sm">
               No se encontró ningún servicio con el nombre{' '}
               <strong>"{searchTerm}"</strong>.
@@ -177,19 +148,18 @@ export const ServicesPage = () => {
               Limpiar búsqueda
             </button>
           </div>
-
         ) : (
           <div className="flex flex-col">
             <div className="overflow-x-auto">
               <table className="w-full text-left">
-                <thead className="bg-gray-50 text-gray-500 text-xs uppercase font-bold border-b border-gray-100">
+                <thead className="bg-gray-50 text-gray-500 text-xs uppercase font-bold border-b border-border-elements">
                   <tr>
                     <th className="px-6 py-4">Tipo de Servicio</th>
                     <th className="px-6 py-4">Fecha de Creación</th>
                     <th className="px-6 py-4 text-right">Acciones</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-border-elements">
                   {paginated.map((service, index) => (
                     <tr
                       key={service.id}
@@ -204,7 +174,7 @@ export const ServicesPage = () => {
                             {service.name.charAt(0).toUpperCase()}
                           </div>
                           <div>
-                            <p className="font-semibold text-gray-800 text-sm">
+                            <p className="font-semibold text-foreground text-sm">
                               {service.name}
                             </p>
                             <p className="text-[10px] text-gray-400 mt-0.5">
@@ -215,7 +185,7 @@ export const ServicesPage = () => {
                       </td>
                       {/* Created at */}
                       <td className="px-6 py-4">
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-foreground">
                           {service.createdAt ? formatDate(service.createdAt) : '—'}
                         </p>
                       </td>
@@ -245,9 +215,8 @@ export const ServicesPage = () => {
                 </tbody>
               </table>
             </div>
-
             {/* Pagination */}
-            <div className="px-6 py-4 border-t border-gray-100">
+            <div className="px-6 py-4 border-t border-border-elements">
               <Pagination
                 {...pagination}
                 totalItems={filtered.length}
@@ -258,7 +227,6 @@ export const ServicesPage = () => {
           </div>
         )}
       </div>
-
       {/* Modal */}
       <ServiceModal
         isOpen={isModalOpen}
