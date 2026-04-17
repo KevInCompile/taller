@@ -4,7 +4,7 @@ import { useWorkOrders } from '../orders/hooks/useWorkOrders';
 import { useSupplies } from '../supplies/hooks/useSupplies';
 import { useCustomers } from '../customers/hooks/useCustomers';
 import { StatusBadge, PriorityBadge } from '../orders/ui/WorkOrderBadges';
-import { TrendingUp, Wrench, Users, Package, AlertTriangle, Plus, CheckCircle2, ClipboardList, Calendar, ChevronRight, XCircle, Loader2, BarChart3, Target, BellDot } from 'lucide-react';
+import { TrendingUp, Wrench, Users, Package, AlertTriangle, Plus, CheckCircle2, ClipboardList, Calendar, ChevronRight, XCircle, Loader2, BarChart3, Target } from 'lucide-react';
 import { formatCurrency } from '../../helpers/helpers';
 import { Header } from '../../components/ui/Header';
 
