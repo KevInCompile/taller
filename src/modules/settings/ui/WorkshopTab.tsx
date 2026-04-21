@@ -139,7 +139,7 @@ export const WorkshopTab = () => {
 
         {!isCreating && (
           <div className="md:col-span-2">
-            <label className="block text-sm font-semibold text-gray-700 mb-1">
+            <label className="block text-sm font-semibold text-foreground mb-1">
               Logo del Taller
             </label>
             <input
@@ -161,7 +161,7 @@ export const WorkshopTab = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="flex items-center gap-2 bg-brand-dark text-white px-8 py-3 rounded-xl hover:bg-black transition disabled:opacity-50"
+          className="flex items-center gap-2 bg-foreground text-elements px-8 py-3 rounded-xl hover:opacity-70 transition disabled:opacity-50"
         >
           {isSubmitting ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
           {isCreating ? 'Crear Negocio' : 'Guardar Cambios'}

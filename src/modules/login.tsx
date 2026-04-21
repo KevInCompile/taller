@@ -7,7 +7,7 @@ import { workshopService } from '../api/user.service';
 import { useAuthStore } from '../store/useAuthStore';
 import { Mail, Lock, Loader2, Eye, EyeOff, CarFront } from 'lucide-react';
 import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import SideLeft from '../components/ui/SideLeft';
 
@@ -151,13 +151,13 @@ export const LoginPage = () => {
                 </p>
               )}
             </div>
-
+            <p className='text-neutral-400 text-center text-sm'>Si no tienes cuenta, <Link className='text-brand-accent underline' to="/register">regístrate aquí</Link></p>
             {/* Submit */}
             <button
               type="submit"
               disabled={isSubmitting}
               className="w-full bg-brand-accent hover:bg-orange-600 disabled:opacity-60 disabled:cursor-not-allowed
-                text-white font-bold py-3.5 rounded-xl transition-all duration-200
+                text-white font-semibold py-3.5 rounded-xl transition-all duration-200
                  hover:shadow-orange-300 hover:-translate-y-0.5
                 active:translate-y-0 flex items-center justify-center gap-2 text-sm mt-2"
             >

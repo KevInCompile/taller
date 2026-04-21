@@ -35,36 +35,36 @@ export const RegisterPage = () => {
       {/* Lado Izquierdo: Visual (Oculto en móvil) */}
      <SideLeft />
       {/* Lado Derecho: Formulario */}
-      <div className="flex-1 flex items-center justify-center p-8 bg-white">
+      <div className="flex-1 flex items-center justify-center p-8 dark:bg-gray-50 bg-white">
         <div className="max-w-md w-full">
           <header className="mb-8 text-center lg:text-left">
-            <h2 className="text-3xl font-bold text-gray-900">Crear Cuenta</h2>
+            <h2 className="text-2xl font-bold text-foreground">Crear Cuenta</h2>
             <p className="text-gray-500">Únete a nuestra plataforma de gestión.</p>
           </header>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-700">Nombre</label>
-                <input {...register("firstName")} className="w-full mt-1 p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-accent outline-none" placeholder="Luna" />
+                <label className="block text-sm font-semibold text-foreground">Nombre</label>
+              <input {...register("firstName")} className="w-full mt-1 p-3 bg-white border border-border-elements text-elements rounded-xl focus:ring-2 focus:ring-brand-accent outline-none" placeholder="Luna" />
                 {errors.firstName && <span className="text-xs text-red-500">{errors.firstName.message?.toString()}</span>}
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-700">Apellido</label>
-                <input {...register("lastName")} className="w-full mt-1 p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-accent outline-none" placeholder="Maria" />
+                <label className="block text-sm font-semibold text-foreground">Apellido</label>
+              <input {...register("lastName")} className="w-full mt-1 p-3 bg-white border border-border-elements text-elements rounded-xl focus:ring-2 focus:ring-brand-accent outline-none" placeholder="Maria" />
                 {errors.lastName && <span className="text-xs text-red-500">{errors.lastName.message?.toString()}</span>}
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700">Correo Electrónico</label>
-              <input {...register("email")} type="email" className="w-full mt-1 p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-accent outline-none" placeholder="luna16@gmail.com" />
+              <label className="block text-sm font-semibold text-foreground">Correo Electrónico</label>
+            <input {...register("email")} type="email" className="w-full mt-1 p-3 bg-white border border-border-elements text-elements rounded-xl focus:ring-2 focus:ring-brand-accent outline-none" placeholder="luna16@gmail.com" />
               {errors.email && <span className="text-xs text-red-500">{errors.email.message?.toString()}</span>}
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700">Contraseña</label>
-              <input {...register("password")} type="password" className="w-full mt-1 p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-accent outline-none" placeholder="••••••••" />
+              <label className="block text-sm font-semibold text-foreground">Contraseña</label>
+            <input {...register("password")} type="password" className="w-full mt-1 p-3 bg-white border border-border-elements text-elements rounded-xl focus:ring-2 focus:ring-brand-accent outline-none" placeholder="••••••••" />
               {errors.password && <span className="text-xs text-red-500">{errors.password.message?.toString()}</span>}
             </div>
 
@@ -76,7 +76,13 @@ export const RegisterPage = () => {
             </div>
             {errors.habeas_data && <p className="text-xs text-red-500">{errors.habeas_data.message?.toString()}</p>}
 
-            <button disabled={isSubmitting} className="w-full py-4 bg-brand-dark text-white font-bold rounded-xl hover:bg-black transition-all shadow-lg cursor-pointer">
+            <button
+              disabled={isSubmitting}
+              className="w-full bg-brand-accent hover:bg-orange-600 disabled:opacity-60 disabled:cursor-not-allowed
+                text-white font-semibold py-3.5 rounded-xl transition-all duration-200
+                 hover:shadow-orange-300 hover:-translate-y-0.5
+                active:translate-y-0 flex items-center justify-center gap-2 text-sm mt-2"
+              >
               {isSubmitting ? <Loader2 className="animate-spin" size={20} /> : 'Registrarse ahora'}
             </button>
           </form>
