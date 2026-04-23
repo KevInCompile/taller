@@ -47,7 +47,7 @@ interface KpiCardProps {
 const KpiCard = ({ label, value, sub, icon, accent, bg, trend, to }: KpiCardProps) => {
   const content = (
     <div className={`bg-elements rounded-2xl border border-elements shadow-sm p-5 flex flex-col gap-3 h-full
-      ${to ? 'hover:shadow-md hover:border-gray-200 transition-all cursor-pointer' : ''}`}>
+      ${to ? 'hover:shadow-md hover:border-gray-200 cursor-pointer' : ''}`}>
       <div className="flex items-start justify-between">
         <div className={`${bg} p-3 rounded-xl shrink-0`}>
           <div className={accent}>{icon}</div>

@@ -1,5 +1,6 @@
 import { BellDot, Moon, Sun } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
+import { toast } from "sonner";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -24,11 +25,12 @@ export const Header = (props: HeaderProps) => {
       <div className='flex items-center gap-4'>
         <button
           onClick={toggle}
+          className="bg-button text-button-text p-2 rounded-md"
         >
-          {dark ? <Moon /> : <Sun />}
+          {dark ? <Moon size={18} /> : <Sun size={18}/>}
         </button>
-        <button className='bg-foreground p-2 rounded-md'>
-          <BellDot className='text-elements' size={20}/>
+        <button onClick={() => toast.info("La función estará disponible pronto!")} className='bg-button text-button-text p-2 rounded-md'>
+          <BellDot size={18}/>
         </button>
         <button
           onClick={actionButton}

@@ -9,6 +9,8 @@
   --color-foreground: var(--color-gray-800);
   --color-progress-fill: var(--color-gray-100);
   --color-border-elements: var(--color-gray-100);
+  --color-button: var(--color-gray-100);
+  --color-button-text: var(--color-neutral-500);
 }
 
 [data-theme="dark"] {
@@ -17,6 +19,8 @@
   --color-elements: #1a1a1a;
   --color-foreground: #e2e8f0;
   --color-progress-fill: #ffffff19;
+  --color-button: #1a1a1a;
+  --color-button-text: #fff;
   --color-border-elements: var(--color-neutral-700);
 }
 
